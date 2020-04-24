@@ -53,6 +53,4 @@ func GetUsers (c *gin.Context) {
 	} else {
 		c.JSON(200, users)
 	}
-
-
 }

@@ -1,0 +1,53 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+body {
+    font-family: Verdana, Candara, Arial, Helvetica, Microsoft YaHei, sans-serif;
+    color: #000;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+}
+
+.page-container{
+    margin: 0 auto;
+    width: 980px;
+    padding: 10px;
+}
+
+.frame-header {
+    border-bottom: 2px;
+    overflow: auto;
+    height: 52px;
+    line-height: 50px;
+    font-size: 18px;
+}
+
+.frame-header nav {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.frame-header li {
+    display: inline;
+    font-size: 20px;
+    padding: 0 20px 0 2px;
+}
+
+.frame-footer{
+    border-top: 2px solid #000;
+    height: 62px;
+    line-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
