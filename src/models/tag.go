@@ -3,10 +3,12 @@ package models
 import "time"
 
 type Tag struct {
-	Id string
-	Text string
-	CreateBy  uint
-	CreateAt  *time.Time
-	UpdateBy  uint
-	UpdateAt  *time.Time
+	Id       string
+	Code     string
+	Text     string
+	Sort     uint32
+	CreateBy string
+	CreateAt *time.Time
+	UpdateBy string
+	UpdateAt *time.Time
 }

@@ -5,10 +5,11 @@ import "time"
 type Article struct {
 	Id        string
 	Title     string
-	SubTitle  string
+	Summary   string
 	Content   string
-	ViewCount uint
 	Tags      []string
+	Status    uint8
+	ViewCount uint
 	CreateBy  uint
 	CreateAt  *time.Time
 	UpdateBy  uint
