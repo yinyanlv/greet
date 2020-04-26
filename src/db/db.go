@@ -3,8 +3,7 @@ package db
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-
-	. "prot/src/models"
+	"prot/src/models"
 )
 
 var Db *gorm.DB
@@ -25,13 +24,7 @@ func ConnDb(connStr string) {
 
 	Db.SingularTable(true)
 
-	Db.AutoMigrate(&User{})
-	Db.AutoMigrate(&Tag{})
-	Db.AutoMigrate(&Article{})
-
-	Db.Create(&User{
-		Username: "root",
-		Password: "111111",
-		Email:    "abc@d.com",
-	})
+	Db.AutoMigrate(&models.User{})
+	Db.AutoMigrate(&models.Article{})
+	Db.AutoMigrate(&models.Tag{})
 }

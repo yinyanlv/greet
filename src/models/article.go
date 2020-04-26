@@ -7,7 +7,8 @@ type Article struct {
 	Title     string
 	Summary   string
 	Content   string
-	Tags      []string
+	Tags      string
+	Public    bool
 	Status    uint8
 	ViewCount uint
 	CreateBy  uint

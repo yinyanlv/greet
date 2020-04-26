@@ -9,3 +9,4 @@ func InitControllers(r *gin.Engine) {
 	r.GET("/", controllers.RenderIndex)
 	r.GET("/article", controllers.RenderArticle)
 }
+

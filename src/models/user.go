@@ -1,11 +1,7 @@
 package models
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
 	"time"
-
-	. "prot/src/db"
 )
 
 type User struct {
@@ -23,12 +19,7 @@ type User struct {
 	UpdateAt *time.Time
 }
 
-func GetUsers(c *gin.Context) {
-	var users []User
-	if err := Db.Find(&users).Error; err != nil {
-		c.AbortWithStatus(404)
-		fmt.Println(err)
-	} else {
-		c.JSON(200, users)
-	}
+type IUser interface {
+	Migrate(user *User)
 }
+
