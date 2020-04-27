@@ -18,13 +18,17 @@ func ConnDb(connStr string) {
 		return
 	}
 
-	defer Db.Close()
-
 	fmt.Println("创建数据库连接成功！")
 
 	Db.SingularTable(true)
+}
 
+func Migrate() {
 	Db.AutoMigrate(&models.User{})
 	Db.AutoMigrate(&models.Article{})
 	Db.AutoMigrate(&models.Tag{})
+}
+
+func Close()  {
+	Db.Close()
 }

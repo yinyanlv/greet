@@ -11,6 +11,7 @@ func main() {
 
 	connStr := "root:111111@tcp(127.0.0.1:3306)/prot?charset=utf8&parseTime=True&loc=Local"
 	ConnDb(connStr)
+	Migrate()
 
 	r := gin.Default()
 
