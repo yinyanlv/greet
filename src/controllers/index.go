@@ -7,5 +7,5 @@ import (
 
 func RenderIndex(c *gin.Context) {
 
-	c.HTML(http.StatusOK, "views/index", gin.H{})
+	c.HTML(http.StatusOK, "index.html", gin.H{})
 }

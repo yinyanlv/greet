@@ -7,5 +7,5 @@ import (
 
 func RenderArticle(c *gin.Context) {
 
-	c.HTML(http.StatusOK, "views/article", gin.H{})
+	c.HTML(http.StatusOK, "article.html", gin.H{})
 }

@@ -23,15 +23,34 @@ func main() {
 	r := gin.Default()
 
 	r.Static("/static", "./static")
-	r.HTMLRender = loadTemplates("./views")
-	//r.HTMLRender = LoadTemplateFiles("./views", ".html")
+	r.HTMLRender = LoadTemplateFiles("./views", ".html")
 	InitControllers(r)
 
-	r.Run(":1124")
+	r.Run(":8080")
+}
+
+func LoadTemplateFiles(templateDir, suffix string) multitemplate.Renderer {
+	r := multitemplate.NewRenderer()
+	rd, _ := ioutil.ReadDir(templateDir)
+	for _, fi := range rd {
+		if fi.IsDir() {
+			for _, f := range getFileList(path.Join(templateDir, fi.Name()), suffix) {
+				println(f[len(templateDir)-1:len(f)-len(suffix)])
+				println(f)
+				r.AddFromFiles(f[len(templateDir)-1:len(f)-len(suffix)], f)
+				//r.AddFromFiles(f[len(templateDir)-1:], f)
+			}
+		} else {
+			r.AddFromFiles(fi.Name(), path.Join(templateDir, fi.Name()))
+		}
+	}
+
+	fmt.Println(r)
+
+	return r
 }
 
 func getFileList(path string, suffix string) (files []string) {
-
 
 	filepath.Walk(path, func(path string, f os.FileInfo, err error) error {
 
@@ -50,44 +69,4 @@ func getFileList(path string, suffix string) (files []string) {
 	})
 
 	return files
-}
-
-func LoadTemplateFiles(templateDir, suffix string) multitemplate.Renderer {
-	r := multitemplate.NewRenderer()
-	rd, _ := ioutil.ReadDir(templateDir)
-	for _, fi := range rd {
-		if fi.IsDir() {
-			for _, f := range getFileList(path.Join(templateDir, fi.Name()), suffix) {
-				r.AddFromFiles(f[len(templateDir) + 1:], f)
-			}
-		} else {
-			r.AddFromFiles(fi.Name(), path.Join(templateDir, fi.Name()))
-		}
-	}
-
-	fmt.Println(r)
-	return r
-}
-
-func loadTemplates(templatesDir string) multitemplate.Renderer {
-	r := multitemplate.NewRenderer()
-
-	layouts, err := filepath.Glob(templatesDir + "/*.html")
-	if err != nil {
-		panic(err.Error())
-	}
-
-	includes, err := filepath.Glob(templatesDir + "/common/*.html")
-	if err != nil {
-		panic(err.Error())
-	}
-
-	// Generate our templates map from our layouts/ and includes/ directories
-	for _, include := range includes {
-		layoutCopy := make([]string, len(layouts))
-		copy(layoutCopy, layouts)
-		files := append(layoutCopy, include)
-		r.AddFromFiles(filepath.Base(include), files...)
-	}
-	return r
 }
