@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -42,9 +41,6 @@ func LoadTemplateFiles(templateDir, suffix string, commonTpls []string) multitem
 			r.AddFromFiles(filename[0:len(filename)-len(suffix)], tpls...)
 		}
 	}
-
-	fmt.Println(r)
-
 	return r
 }
 
