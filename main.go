@@ -21,27 +21,25 @@ func main() {
 	Migrate()
 
 	r := gin.Default()
+	commonTpls := getFileList("./views/common", ".html")
 
 	r.Static("/static", "./static")
-	r.HTMLRender = LoadTemplateFiles("./views", ".html")
+	r.HTMLRender = LoadTemplateFiles("./views", ".html", commonTpls)
 	InitControllers(r)
 
 	r.Run(":8080")
 }
 
-func LoadTemplateFiles(templateDir, suffix string) multitemplate.Renderer {
+func LoadTemplateFiles(templateDir, suffix string, commonTpls []string) multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 	rd, _ := ioutil.ReadDir(templateDir)
 	for _, fi := range rd {
-		if fi.IsDir() {
-			for _, f := range getFileList(path.Join(templateDir, fi.Name()), suffix) {
-				println(f[len(templateDir)-1:len(f)-len(suffix)])
-				println(f)
-				r.AddFromFiles(f[len(templateDir)-1:len(f)-len(suffix)], f)
-				//r.AddFromFiles(f[len(templateDir)-1:], f)
-			}
-		} else {
-			r.AddFromFiles(fi.Name(), path.Join(templateDir, fi.Name()))
+		if !fi.IsDir() {
+			arr := make([]string, 0)
+			filename := fi.Name()
+			p := path.Join(templateDir, filename)
+			tpls := append(append(arr, p), commonTpls...)
+			r.AddFromFiles(filename[0:len(filename)-len(suffix)], tpls...)
 		}
 	}
 

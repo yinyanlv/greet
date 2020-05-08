@@ -1,39 +1,37 @@
-{{define "index.html"}}
-    {{template "common/head" .}}
-    <div class="page-container">
-        <header class="frame-header">
-            <nav>
-                <ul>
-                    <li><a href="/">Bugong</a></li>
-                    <li><a href="/">文章</a></li>
-                    <li><a href="/">说说</a></li>
-                    <li><a href="/">归档</a></li>
-                    <li><a href="/">关于</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <div class="article-list">
-                <div class="item">
-                    <h2 class="title-line"><a>这里是网站标题</a></h2>
-                    <div class="info-line">
-                        <div class="tags">
-                            <a class="tag">说说</a>
-                            <a class="tag">文章</a>
-                            <a class="tag">2020-04-25</a>
-                        </div>
+{{template "common/head" .}}
+<div class="page-container">
+    <header class="frame-header">
+        <nav>
+            <ul>
+                <li><a href="/">Bugong</a></li>
+                <li><a href="/">文章</a></li>
+                <li><a href="/">说说</a></li>
+                <li><a href="/">归档</a></li>
+                <li><a href="/">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="article-list">
+            <div class="item">
+                <h2 class="title-line"><a>这里是网站标题</a></h2>
+                <div class="info-line">
+                    <div class="tags">
+                        <a class="tag">说说</a>
+                        <a class="tag">文章</a>
+                        <a class="tag">2020-04-25</a>
                     </div>
-                    <div class="summary-line">这里网站副标题</div>
                 </div>
+                <div class="summary-line">这里网站副标题</div>
             </div>
-            <div class="pagination">
-                <a class="btn btn-prev">上一页</a>
-                <a class="btn btn-next">下一页</a>
-            </div>
-        </main>
-        <footer class="frame-footer">
-            <div>© 2020 Bugong.</div>
-        </footer>
-    </div>
-    {{template "common/foot" .}}
-{{end}}
+        </div>
+        <div class="pagination">
+            <a class="btn btn-prev">上一页</a>
+            <a class="btn btn-next">下一页</a>
+        </div>
+    </main>
+    <footer class="frame-footer">
+        <div>© 2020 Bugong.</div>
+    </footer>
+</div>
+{{template "common/foot" .}}

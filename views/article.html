@@ -1,33 +1,31 @@
-{{define "article.html"}}
-    {{template "common/head" .}}
-    <div class="page-container">
-        <header class="frame-header">
-            <nav>
-                <ul>
-                    <li><a href="/">Bugong</a></li>
-                    <li><a href="/">文章</a></li>
-                    <li><a href="/">说说</a></li>
-                    <li><a href="/">归档</a></li>
-                    <li><a href="/">关于</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <article class="article">
-                <h2 class="title">这里是标题</h2>
-                <div class="tags"><a class="tag">文章</a></div>
-                <div class="info">
-                    <span class="item"><label>创建时间：</label>2020-04-25 11:11:11</span>
-                    <span class="item"><label>修改时间：</label>2020-04-25 11:11:11</span>
-                </div>
-                <div class="content">
-                    这里是文章内容
-                </div>
-            </article>
-        </main>
-        <footer class="frame-footer">
-            <div>© 2020 Bugong.</div>
-        </footer>
-    </div>
-    {{template "common/foot" .}}
-{{end}}
+{{template "common/head" .}}
+<div class="page-container">
+    <header class="frame-header">
+        <nav>
+            <ul>
+                <li><a href="/">Bugong</a></li>
+                <li><a href="/">文章</a></li>
+                <li><a href="/">说说</a></li>
+                <li><a href="/">归档</a></li>
+                <li><a href="/">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article class="article">
+            <h2 class="title">这里是标题</h2>
+            <div class="tags"><a class="tag">文章</a></div>
+            <div class="info">
+                <span class="item"><label>创建时间：</label>2020-04-25 11:11:11</span>
+                <span class="item"><label>修改时间：</label>2020-04-25 11:11:11</span>
+            </div>
+            <div class="content">
+                这里是文章内容
+            </div>
+        </article>
+    </main>
+    <footer class="frame-footer">
+        <div>© 2020 Bugong.</div>
+    </footer>
+</div>
+{{template "common/foot" .}}
