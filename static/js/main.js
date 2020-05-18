@@ -1,3 +1,0 @@
-document.documentElement.onload = function () {
-
-};

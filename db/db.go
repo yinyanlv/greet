@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"prot/src/models"
+	"prot/models"
 )
 
 var Db *gorm.DB
