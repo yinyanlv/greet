@@ -3,16 +3,17 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"prot/models"
 
 	. "prot/db"
 	. "prot/utils"
 )
 
 func main() {
-
-	connStr := "root:111111@tcp(127.0.0.1:3306)/prot?charset=utf8&parseTime=True&loc=Local"
-	ConnDb(connStr)
-	Migrate()
+	ConnDb()
+	Db.AutoMigrate(&models.User{})
+	Db.AutoMigrate(&models.Article{})
+	Db.AutoMigrate(&models.Tag{})
 
 	r := gin.Default()
 	commonTpls := GetFileList("./templates/common", ".html")
