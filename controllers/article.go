@@ -2,13 +2,19 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/gomarkdown/markdown"
+	"html/template"
 	"net/http"
 	"prot/models"
 )
 
 func RenderArticle(c *gin.Context) {
+	md := []byte("## 这里是文章内容")
+	content := string(markdown.ToHTML(md, nil, nil))
 
-	c.HTML(http.StatusOK, "article", gin.H{})
+	c.HTML(http.StatusOK, "article", gin.H{
+		"content": template.HTML(content),
+	})
 }
 
 func CreateArticle(c *gin.Context) {
