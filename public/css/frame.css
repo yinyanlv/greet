@@ -43,10 +43,11 @@ a:hover {
 
 .frame-header {
     border-bottom: 2px solid #000;
-    overflow-x: auto;
     height: 52px;
     line-height: 50px;
     font-size: 18px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .frame-header nav {
@@ -156,5 +157,20 @@ a:hover {
 }
 
 .article .content {
+    margin-top: 20px;
+}
+
+.error-box {
+    width: 100%;
+    padding: 200px 0;
+    text-align: center;
+}
+
+.error-box .status{
+    font-size: 44px;
+    font-weight: bold;
+}
+
+.error-box .error-info {
     margin-top: 20px;
 }

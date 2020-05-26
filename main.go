@@ -10,9 +10,9 @@ import (
 
 func main() {
 	ConnDb()
-	MysqlConn.AutoMigrate(&models.User{})
-	MysqlConn.AutoMigrate(&models.Article{})
-	MysqlConn.AutoMigrate(&models.Tag{})
+	MysqlDb.AutoMigrate(&models.User{})
+	MysqlDb.AutoMigrate(&models.Article{})
+	MysqlDb.AutoMigrate(&models.Tag{})
 
 	r := gin.Default()
 	commonTpls := GetFileList("./templates/common", ".html")

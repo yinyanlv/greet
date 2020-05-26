@@ -11,5 +11,9 @@ func InitRouter(r *gin.Engine) {
 	r.GET("/article", RenderArticle)
 	r.POST("/article", CreateArticle)
 	r.PUT("/article", UpdateArticle)
+
 	r.GET("/edit", RenderEdit)
+
+	r.NoMethod(Render404)
+	r.NoRoute(Render404)
 }

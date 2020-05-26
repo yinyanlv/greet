@@ -7,13 +7,13 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-var MysqlConn *gorm.DB
+var MysqlDb *gorm.DB
 var err error
 
 func ConnDb() {
 	connStr := "root:111111@tcp(127.0.0.1:3306)/prot?charset=utf8&parseTime=True&loc=Local"
 
-	MysqlConn, err = gorm.Open("mysql", connStr)
+	MysqlDb, err = gorm.Open("mysql", connStr)
 
 	if err != nil {
 		fmt.Errorf("创建数据库连接失败：%v", err)
@@ -22,9 +22,9 @@ func ConnDb() {
 
 	fmt.Println("创建数据库连接成功！")
 
-	MysqlConn.SingularTable(true)
+	MysqlDb.SingularTable(true)
 }
 
 func Close()  {
-	MysqlConn.Close()
+	MysqlDb.Close()
 }

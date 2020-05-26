@@ -1,0 +1,12 @@
+{{template "common/head" .}}
+<div class="page-container">
+    <div class="error-box">
+        <div class="status">
+            {{.statusCode}}
+        </div>
+        <div class="error-info">
+            {{.message}}
+        </div>
+    </div>
+</div>
+{{template "common/foot" .}}
