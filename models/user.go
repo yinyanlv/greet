@@ -5,13 +5,12 @@ type User struct {
 	Username string
 	Nickname string
 	Password string
-	Role     string
+	Role     uint8
 	Status   uint8
 	Email    string
-	Phone    uint
+	Phone    string
 }
 
 type IUser interface {
 	Migrate(user *User)
 }
-
