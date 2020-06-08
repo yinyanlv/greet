@@ -12,30 +12,37 @@
         </nav>
     </header>
     <main>
-        <div>
-            <div>
-                标题：
+        <div class="form-container">
+            <div class="field-line">
+                <label>标题：</label>
+                <div>
+                    <input type="text" name="title"/>
+                </div>
             </div>
-            <input type="text" name="title"/>
-        </div>
-        <div>
-            <div>
-                简介：
+            <div class="field-line">
+                <label>简介：</label>
+                <div>
+                    <input type="text" name="summary"/>
+                </div>
             </div>
-            <input type="text" name="summary"/>
-        </div>
-        <div>
-            <div>
-                标签：
+            <div class="field-line">
+                <label>标签：</label>
+                <div>
+                    <select id="tags" name="tags" multiple>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
             </div>
-            <input type="text" name="tags"/>
-        </div>
-        <div>
-            <div>内容：</div>
-            <textarea name="content"></textarea>
-        </div>
-        <div>
-            <button id="btn-submit">提交</button>
+            <div class="field-line">
+                <label>内容：</label>
+                <div>
+                    <textarea name="content" id="content"></textarea>
+                </div>
+            </div>
+            <div class="btn-line">
+                <button id="btn-submit">提交</button>
+            </div>
         </div>
     </main>
     <footer class="frame-footer">
@@ -43,8 +50,13 @@
     </footer>
 </div>
 <script type="text/javascript">
+    let editor = null;
     document.addEventListener('DOMContentLoaded', () => {
         const btnSubmit = document.getElementById('btn-submit');
+
+        editor = new SimpleMDE({
+            element: document.getElementById('content')
+        });
 
         btnSubmit.addEventListener('click', () => {
             const params = getParams();
@@ -61,15 +73,29 @@
 
     function getParams() {
         const inputs = document.querySelectorAll('input');
-        const textareas = document.querySelectorAll('textarea');
-        const items = [...inputs, ...textareas];
         let result = {};
 
-        items.forEach((item) => {
+        inputs.forEach((item) => {
             result[item.name] = item.value;
         });
 
+        result.content = editor.value();
+        result.tags = getMultiSelectValue('tags');
+
         return result;
+    }
+
+    function getMultiSelectValue(id) {
+        const list = [];
+        const elem = document.getElementById(id);
+
+        elem && Array.from(elem.options).forEach((item, index) => {
+            if (item.selected) {
+                list.push(item.value);
+            }
+        });
+
+        return list;
     }
 </script>
 {{template "common/foot" .}}

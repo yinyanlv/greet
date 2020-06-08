@@ -5,9 +5,9 @@ USE prot;
 CREATE TABLE IF NOT EXISTS user
 (
     id        int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    username  varchar(20)                    NOT NULL,
+    username  varchar(20) UNIQUE             NOT NULL,
     nickname  varchar(20),
-    password  varchar(20),
+    password  varchar(40),
     role      tinyint,
     status    tinyint,
     email     varchar(20),
@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS user
   DEFAULT CHARSET = utf8;
 
 INSERT INTO user (username)
-values ('admin');
+VALUES ('admin');
 INSERT INTO user (username)
-values ('bugong');
+VALUES ('bugong');
 
 
 CREATE TABLE IF NOT EXISTS tag
@@ -43,14 +43,18 @@ CREATE TABLE IF NOT EXISTS tag
   DEFAULT CHARSET = utf8;
 
 INSERT INTO tag (code, name)
-values ('life', '生活');
+VALUES ('wenzhang', '文章');
+INSERT INTO tag (code, name)
+VALUES ('shuoshuo', '说说');
+INSERT INTO tag (code, name)
+VAlUES ('riji', '日记');
 
 
 CREATE TABLE IF NOT EXISTS article
 (
     id         int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    title      varchar(100)                   NOT NULL,
-    summary    varchar(100)                   NOT NULL,
+    title      varchar(200)                   NOT NULL,
+    summary    varchar(200)                   NOT NULL,
     content    text                           NOT NULL,
     tags       varchar(100)                   NOT NULL,
     public     tinyint,

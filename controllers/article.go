@@ -24,7 +24,6 @@ func CreateArticle(c *gin.Context) {
 	article.Summary = c.Request.PostFormValue("summary")
 	article.Tags = c.Request.PostFormValue("tags")
 	article.Content = c.Request.PostFormValue("content")
-	article.CreateBy = "bugong"
 
 	article.Insert()
 
