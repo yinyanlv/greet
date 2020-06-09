@@ -44,10 +44,54 @@ CREATE TABLE IF NOT EXISTS tag
 
 INSERT INTO tag (code, name)
 VALUES ('wenzhang', '文章');
+
 INSERT INTO tag (code, name)
 VALUES ('shuoshuo', '说说');
+
 INSERT INTO tag (code, name)
 VAlUES ('riji', '日记');
+
+INSERT INTO tag (code, name)
+VAlUES ('shenghuo', '生活');
+
+INSERT INTO tag (code, name)
+VAlUES ('ganwu', '感悟');
+
+INSERT INTO tag (code, name)
+VAlUES ('it', 'IT');
+
+INSERT INTO tag (code, name)
+VAlUES ('go', 'Go');
+
+INSERT INTO tag (code, name)
+VAlUES ('javascript', 'JavaScript');
+
+INSERT INTO tag (code, name)
+VAlUES ('c', 'C');
+
+INSERT INTO tag (code, name)
+VAlUES ('rust', 'Rust');
+
+INSERT INTO tag (code, name)
+VAlUES ('java', 'Java');
+
+INSERT INTO tag (code, name)
+VAlUES ('python', 'Python');
+
+INSERT INTO tag (code, name)
+VAlUES ('typescript', 'Typescript');
+
+INSERT INTO tag (code, name)
+VAlUES ('frontend', '前端');
+
+INSERT INTO tag (code, name)
+VAlUES ('backend', '后端');
+
+INSERT INTO tag (code, name)
+VAlUES ('mysql', 'MySql');
+
+INSERT INTO tag (code, name)
+VAlUES ('nosql', 'NoSql');
 
 
 CREATE TABLE IF NOT EXISTS article
@@ -56,7 +100,6 @@ CREATE TABLE IF NOT EXISTS article
     title      varchar(200)                   NOT NULL,
     summary    varchar(200)                   NOT NULL,
     content    text                           NOT NULL,
-    tags       varchar(100)                   NOT NULL,
     public     tinyint,
     status     tinyint,
     view_count int,
@@ -66,6 +109,18 @@ CREATE TABLE IF NOT EXISTS article
     update_at  datetime,
     delete_by  int,
     delete_at  datetime
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+
+CREATE TABLE IF NOT EXISTS article_tag
+(
+    id         int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    article_id int,
+    tag_id     smallint,
+    sort       smallint,
+    CONSTRAINT article_tag_ibfk_1 FOREIGN KEY (article_id) REFERENCES article (id),
+    CONSTRAINT article_tag_ibfk_2 FOREIGN KEY (tag_id) REFERENCES tag (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
