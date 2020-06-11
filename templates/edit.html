@@ -29,8 +29,9 @@
                 <label>标签：</label>
                 <div>
                     <select id="tags" name="tags" multiple>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
+                        {{ range .tags }}
+                            <option value="{{.Code}}">{{.Name}}</option>
+                        {{end}}
                     </select>
                 </div>
             </div>
