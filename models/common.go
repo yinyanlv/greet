@@ -1,13 +1,12 @@
 package models
 
-import "time"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type Common struct {
-	ID       uint
-	CreateBy string
-	CreateAt time.Time
-	UpdateBy string
-	UpdateAt time.Time
-	DeleteBy string
-	DeleteAt time.Time
+	gorm.Model
+	CreatedBy uint
+	UpdatedBy uint
+	DeletedBy uint
 }

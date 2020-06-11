@@ -16,5 +16,5 @@ type Article struct {
 }
 
 func (article Article) Insert() {
-	db.MysqlDb.Create(&article)
+	db.MysqlDB.Create(&article)
 }

@@ -35,3 +35,7 @@ func CreateArticle(c *gin.Context) {
 func UpdateArticle(c *gin.Context) {
 
 }
+
+func DeleteArticle(c *gin.Context) {
+
+}

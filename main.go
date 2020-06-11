@@ -3,11 +3,15 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	. "prot/db"
+	. "prot/migrations"
 	. "prot/utils"
 )
 
 func main() {
-	ConnDb()
+
+	ConnDB()
+
+	InitDB()
 
 	r := gin.Default()
 	commonTpls := GetFileList("./templates/common", ".html")
