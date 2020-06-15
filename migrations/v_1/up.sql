@@ -12,12 +12,12 @@ CREATE TABLE IF NOT EXISTS user
     status    tinyint,
     email     varchar(20),
     phone     varchar(20),
-    create_by int,
-    create_at datetime,
-    update_by int,
-    update_at datetime,
-    delete_by int,
-    delete_at datetime
+    created_by int,
+    created_at datetime,
+    updated_by int,
+    updated_at datetime,
+    deleted_by int,
+    deleted_at datetime
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -33,12 +33,12 @@ CREATE TABLE IF NOT EXISTS tag
     code      varchar(20)                         NOT NULL,
     name      varchar(20)                         NOT NULL,
     sort      int,
-    create_by int,
-    create_at datetime,
-    update_by int,
-    update_at datetime,
-    delete_by int,
-    delete_at datetime
+    created_by int,
+    created_at datetime,
+    updated_by int,
+    updated_at datetime,
+    deleted_by int,
+    deleted_at datetime
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -103,12 +103,12 @@ CREATE TABLE IF NOT EXISTS article
     public     tinyint,
     status     tinyint,
     view_count int,
-    create_by  int,
-    create_at  datetime,
-    update_by  int,
-    update_at  datetime,
-    delete_by  int,
-    delete_at  datetime
+    created_by  int,
+    created_at  datetime,
+    updated_by  int,
+    updated_at  datetime,
+    deleted_by  int,
+    deleted_at  datetime
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 

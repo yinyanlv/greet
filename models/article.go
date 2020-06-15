@@ -1,7 +1,7 @@
 package models
 
 import (
-	"prot/db"
+	. "prot/db"
 )
 
 type Article struct {
@@ -15,6 +15,13 @@ type Article struct {
 	ViewCount uint
 }
 
-func (article Article) Insert() {
-	db.MysqlDB.Create(&article)
+func (article *Article) Insert() (id uint, err error) {
+
+	if err = MysqlDB.Create(article).Error; err != nil {
+		return
+	}
+
+	id = article.ID
+
+	return
 }
