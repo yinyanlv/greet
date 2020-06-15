@@ -1,7 +1,7 @@
 package models
 
 type User struct {
-	Common
+	CommonStrID
 	Username string
 	Nickname string
 	Password string
@@ -9,8 +9,4 @@ type User struct {
 	Status   uint8
 	Email    string
 	Phone    string
-}
-
-type IUser interface {
-	Migrate(user *User)
 }
