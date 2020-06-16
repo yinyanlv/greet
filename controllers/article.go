@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gomarkdown/markdown"
 	"html/template"
@@ -19,11 +20,16 @@ func RenderArticle(c *gin.Context) {
 
 func CreateArticle(c *gin.Context) {
 	var article models.Article
+	var tags []string
 
-	article.Title = c.Request.PostFormValue("title")
-	article.Summary = c.Request.PostFormValue("summary")
-	article.Content = c.Request.PostFormValue("content")
+	c.BindJSON(&article)
+	article.Public = 1
+	article.Status = 1
+	article.CreatedBy = "bugong"
+	article.UpdatedBy = "bugong"
+	tags = c.PostFormArray("tags")
 
+	fmt.Println(tags)
 	article.Insert()
 
 	c.JSON(http.StatusOK, gin.H{

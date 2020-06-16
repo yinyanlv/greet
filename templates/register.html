@@ -1,0 +1,77 @@
+{{template "common/head" .}}
+<div class="page-container">
+    <header class="frame-header">
+        <nav>
+            <ul>
+                <li><a href="/">Bugong</a></li>
+                <li><a href="/">文章</a></li>
+                <li><a href="/">说说</a></li>
+                <li><a href="/">归档</a></li>
+                <li><a href="/">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="form-container">
+            <div class="field-line">
+                <label>用户名：</label>
+                <div>
+                    <input type="text" name="username"/>
+                </div>
+            </div>
+            <div class="field-line">
+                <label>密码：</label>
+                <div>
+                    <input type="password" autocomplete="off" name="username"/>
+                </div>
+            </div>
+            <div class="field-line">
+                <label>手机：</label>
+                <div>
+                    <input type="text" name="phone" />
+                </div>
+            </div>
+            <div class="field-line">
+                <label>邮箱：</label>
+                <div>
+                    <input type="text" name="email" />
+                </div>
+            </div>
+            <div class="btn-line">
+                <button id="btn-submit">提交</button>
+            </div>
+        </div>
+    </main>
+    <footer class="frame-footer">
+        <div>© 2020 Bugong.</div>
+    </footer>
+</div>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+        const btnSubmit = document.getElementById('btn-submit');
+
+        btnSubmit.addEventListener('click', () => {
+            const params = getParams();
+
+            axios.post('/user', params)
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }, false);
+    }, false);
+
+    function getParams() {
+        const inputs = document.querySelectorAll('input');
+        let result = {};
+
+        inputs.forEach((item) => {
+            result[item.name] = item.value;
+        });
+
+        return result;
+    }
+</script>
+{{template "common/foot" .}}

@@ -7,12 +7,12 @@ import (
 
 type Article struct {
 	CommonStrID
-	Title     string
-	Summary   string
-	Content   string
-	Public    bool
-	Status    uint8
-	ViewCount uint
+	Title     string `gorm:"type:varchar(200) not null"`
+	Summary   string `gorm:"type:varchar(200)"`
+	Content   string `gorm:"type:text not null"`
+	Public    uint8  `gorm:"type:tinyint unsigned"`
+	Status    uint8  `gorm:"type:tinyint unsigned"`
+	ViewCount uint   `gorm:"type:int unsigned"`
 }
 
 func (article *Article) Insert() (id string, err error) {

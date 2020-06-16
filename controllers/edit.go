@@ -6,7 +6,7 @@ import (
 	. "prot/models"
 )
 
-func RenderEdit(c *gin.Context) {
+func RenderEditArticle(c *gin.Context) {
 	tag := Tag{}
 	tags, err := tag.Tags()
 

@@ -4,17 +4,17 @@ import . "prot/db"
 
 type Tag struct {
 	Common
-	Code string
-	Name string
-	Sort uint32
+	Code string `grom:"type:varchar(20) not null"`
+	Name string `gorm:"type:varchar(20) not null"`
+	Sort uint8 `gorm:"type:tinyint unsigned"`
 }
 
-type TagResult struct {
+type TagResp struct {
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
 
-func (tag *Tag) Tags() (tags []TagResult, err error) {
+func (tag *Tag) Tags() (tags []TagResp, err error) {
 
 	if err = MysqlDB.Model(tag).Select([]string{"code", "name"}).Scan(&tags).Error; err != nil {
 		return
@@ -32,7 +32,7 @@ func (tag Tag) Insert() (id uint, err error) {
 	return
 }
 
-func (tag *Tag) Update(id uint) (updatedTag TagResult, err error) {
+func (tag *Tag) Update(id uint) (updatedTag TagResp, err error) {
 	if err = MysqlDB.Select([]string{"code", "name"}).First(&updatedTag, id).Error; err != nil {
 		return
 	}
@@ -44,7 +44,7 @@ func (tag *Tag) Update(id uint) (updatedTag TagResult, err error) {
 	return
 }
 
-func (tag *Tag) Delete(id uint) (deleledTag TagResult, err error) {
+func (tag *Tag) Delete(id uint) (deletedTag TagResp, err error) {
 
 	if err = MysqlDB.Select([]string {"code", "name"}).First(tag, id).Error; err != nil {
 		return
@@ -54,8 +54,8 @@ func (tag *Tag) Delete(id uint) (deleledTag TagResult, err error) {
 		return
 	}
 
-	deleledTag.Code = (*tag).Code
-	deleledTag.Name = (*tag).Name
+	deletedTag.Code = (*tag).Code
+	deletedTag.Name = (*tag).Name
 
 	return
 }

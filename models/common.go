@@ -7,17 +7,17 @@ import (
 
 type Common struct {
 	gorm.Model
-	CreatedBy string
-	UpdatedBy string
-	DeletedBy string
+	CreatedBy string `gorm:"type:char(36)"`
+	UpdatedBy string `gorm:"type:char(36)"`
+	DeletedBy string `gorm:"type:char(36)"`
 }
 
 type CommonStrID struct {
-	ID        string `gorm:"primary_key"`
+	ID        string `gorm:"type:char(36);primary_key"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time `sql:"index"`
-	CreatedBy uint
-	UpdatedBy uint
-	DeletedBy uint
+	CreatedBy string     `gorm:"type:char(36)"`
+	UpdatedBy string     `gorm:"type:char(36)"`
+	DeletedBy string     `gorm:"type:char(36)"`
 }
