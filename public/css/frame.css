@@ -46,6 +46,13 @@ a:hover {
     padding: 1rem;
 }
 
+.page-title {
+    margin: 0;
+    font-size: 2.2rem;
+    text-align: center;
+    font-weight: bold;
+}
+
 .frame-header {
     border-bottom: .2rem solid #000;
     height: 5.2rem;

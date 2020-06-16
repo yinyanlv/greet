@@ -62,7 +62,9 @@
         btnSubmit.addEventListener('click', () => {
             const params = getParams();
 
-            axios.post('/article', params)
+            axios.post('/article', params, {
+                withCredentials: true
+            })
                 .then((res) => {
                     console.log(res);
                 })
