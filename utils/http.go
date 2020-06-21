@@ -1,6 +1,8 @@
 package utils
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func IsAjax(c *gin.Context) bool {
 	key := "x-requested-with"

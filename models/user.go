@@ -1,12 +1,37 @@
 package models
 
+import (
+	. "prot/db"
+)
+
 type User struct {
 	CommonStrID
 	Username string `gorm:"type:varchar(20) not null"`
 	Nickname string `gorm:"type:varchar(20)"`
 	Password string `gorm:"type:varchar(40) not null"`
+	Salt     string `gorm:"type:varchar(20) not null"`
 	Role     uint8  `gorm:"type:tinyint unsigned"`
 	Status   uint8  `gorm:"type:tinyint unsigned"`
 	Email    string `gorm:"type:varchar(30)"`
 	Phone    string `gorm:"type:varchar(20)"`
+}
+
+type UserReq struct {
+	Username string `json:"username"`
+	Nickname string `json:"nickname"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+}
+
+func (user User) Insert() (id string, err error) {
+	result := MysqlDB.Create(&user)
+
+	if err = result.Error; err != nil {
+		return
+	}
+
+	id = user.ID
+
+	return
 }

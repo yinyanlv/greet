@@ -9,6 +9,7 @@ func InitRouter(r *gin.Engine) {
 	r.GET("/", RenderIndex)
 
 	r.GET("/register", RenderRegister)
+	r.POST("/register", Register)
 
 	r.GET("/article", RenderArticle)
 	r.POST("/article", CreateArticle)
