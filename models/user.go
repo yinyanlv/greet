@@ -35,3 +35,26 @@ func (user User) Insert() (id string, err error) {
 
 	return
 }
+
+func (user User) IsExist() (bool, User) {
+	var count uint8
+	var u User
+
+	if MysqlDB.Model(&user).Select([]string{
+		"id",
+		"username",
+		"nickname",
+		"role",
+		"status",
+		"email",
+		"phone",
+	}).Where(&user).First(&u).Count(&count).Error != nil {
+		return false, User{}
+	}
+
+	if count == 1 {
+		return true, u
+	} else {
+		return false, User{}
+	}
+}

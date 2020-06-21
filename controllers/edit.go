@@ -12,7 +12,6 @@ func RenderEditArticle(c *gin.Context) {
 
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"statusCode": http.StatusInternalServerError,
 			"message": err,
 		})
 		return

@@ -33,7 +33,7 @@ func CreateArticle(c *gin.Context) {
 	article.Insert()
 
 	c.JSON(http.StatusOK, gin.H{
-		"code": "success",
+		"success": true,
 	})
 }
 

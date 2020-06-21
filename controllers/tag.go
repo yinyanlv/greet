@@ -13,7 +13,6 @@ func GetTags(c *gin.Context)  {
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"code": "db-error",
 			"message": err,
 		})
 		return

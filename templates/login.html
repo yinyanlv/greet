@@ -1,6 +1,6 @@
 {{template "common/head" .}}
 <div class="page-container">
-    <h2 class="page-title">注册</h2>
+    <h2 class="page-title">登录</h2>
     <main>
         <div class="form-container">
             <div class="field-line">
@@ -15,20 +15,8 @@
                     <input type="password" autocomplete="off" name="password"/>
                 </div>
             </div>
-            <div class="field-line">
-                <label>手机：</label>
-                <div>
-                    <input type="text" name="phone" />
-                </div>
-            </div>
-            <div class="field-line">
-                <label>邮箱：</label>
-                <div>
-                    <input type="text" name="email" />
-                </div>
-            </div>
             <div class="btn-line">
-                <button id="btn-submit">注册</button>
+                <button id="btn-submit">登录</button>
             </div>
         </div>
     </main>
@@ -43,14 +31,14 @@
         btnSubmit.addEventListener('click', () => {
             const params = getParams();
 
-            axios.post('/register', params, {
+            axios.post('/login', params, {
                 withCredentials: true,
             })
                 .then((res) => {
                     const data = res.data;
 
                     if (data.success) {
-                        window.location.href = "/login";
+                        window.location.href = "/";
                     } else if (data.message) {
                         alert(data.message);
                     }

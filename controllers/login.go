@@ -1,19 +1,21 @@
 package controllers
 
 import (
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	. "prot/models"
 	"prot/utils"
 )
 
-func RenderRegister(c *gin.Context) {
+func RenderLogin(c *gin.Context) {
 
-	c.HTML(http.StatusOK, "register", gin.H{
+	c.HTML(http.StatusOK, "login", gin.H{
 	})
 }
 
-func Register(c *gin.Context) {
+func Login(c *gin.Context) {
+	session := sessions.Default(c)
 
 	userReq := UserReq{}
 
@@ -34,25 +36,20 @@ func Register(c *gin.Context) {
 	}
 
 	user := User{
-		CommonStrID: CommonStrID {
-			ID: utils.GenUUID(),
-		},
 		Username: userReq.Username,
-		Nickname: userReq.Nickname,
 		Password: pwd,
-		Salt: utils.PwdSalt,
-		Email: userReq.Email,
-		Phone: userReq.Phone,
 	}
 
-	if _, err := user.Insert(); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err,
+	if isExist, u := user.IsExist(); isExist {
+		session.Set("userInfo", u.Username)
+		session.Save()
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
 		})
-		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "用户名或密码不正确",
+		})
 	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"success": true,
-	})
 }
