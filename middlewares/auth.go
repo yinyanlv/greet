@@ -9,7 +9,7 @@ import (
 )
 
 var checkLoginUrls = []string{
-	"/login",
+	"/edit/article",
 }
 
 func Auth() gin.HandlerFunc {
@@ -23,16 +23,29 @@ func Auth() gin.HandlerFunc {
 			return
 		}
 
-		if utils.IsAjax(c) {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"message": "用户未登录",
-			})
+		if isNeedLogin(url) {
+			if utils.IsAjax(c) {
+				c.JSON(http.StatusUnauthorized, gin.H{
+					"message": "用户未登录",
+				})
+			} else {
+				c.HTML(http.StatusUnauthorized, "error", gin.H{
+					"errorCode": "401",
+					"message": "用户未登录",
+				})
+			}
+			c.Abort()
 		} else {
-			c.HTML(http.StatusUnauthorized, "error", gin.H{
-				"errorCode": "401",
-				"message": "用户未登录",
-			})
+			c.Next()
 		}
-		c.Abort()
 	}
+}
+
+func isNeedLogin(url string) bool {
+	for _, item := range checkLoginUrls {
+		if item == url {
+			return true
+		}
+	}
+	return false
 }
