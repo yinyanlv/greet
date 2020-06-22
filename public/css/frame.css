@@ -10,7 +10,7 @@ ul {
 }
 
 html {
-    font-size:10px;
+    font-size: 10px;
 }
 
 body {
@@ -19,7 +19,7 @@ body {
     font-size: 1.4rem;
 }
 
-a{
+a {
     text-decoration: none;
     color: #000;
 }
@@ -28,7 +28,7 @@ a:hover {
     color: #368CCB;
 }
 
-.btn, button{
+.btn, button {
     cursor: pointer;
 }
 
@@ -37,10 +37,10 @@ a:hover {
     border: .2rem solid #000;
     font-size: 1.3rem;
     margin-right: 1rem;
-    float:left;
+    float: left;
 }
 
-.page-container{
+.page-container {
     margin: 0 auto;
     width: 98rem;
     padding: 1rem;
@@ -64,8 +64,18 @@ a:hover {
 
 .frame-header nav {
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
+}
+
+
+.frame-header .operate-box {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.frame-header .operate-box .username {
+    margin-right: .5rem;
 }
 
 .frame-header li {
@@ -74,7 +84,7 @@ a:hover {
     padding: 0 2rem 0 .2rem;
 }
 
-.frame-footer{
+.frame-footer {
     margin-top: 1.5rem;
     border-top: .2rem solid #000;
     height: 6.2rem;
@@ -135,7 +145,7 @@ a:hover {
     padding: 0 .2rem;
 }
 
-.article-list .summary-line{
+.article-list .summary-line {
     margin-top: 1rem;
     font-size: 1.8rem;
     line-height: 2.8rem;
@@ -178,7 +188,7 @@ a:hover {
     text-align: center;
 }
 
-.error-box .status{
+.error-box .status {
     font-size: 4.4rem;
     font-weight: bold;
 }
@@ -187,7 +197,7 @@ a:hover {
     margin-top: 2rem;
 }
 
-.form-container{
+.form-container {
     padding: 2rem 0;
 }
 

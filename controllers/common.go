@@ -13,6 +13,7 @@ func Render404(c *gin.Context) {
 		})
 	} else {
 		c.HTML(http.StatusNotFound, "error", gin.H{
+			"errorCode": "404",
 			"message": "未找到该页面",
 		})
 	}

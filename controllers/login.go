@@ -41,7 +41,7 @@ func Login(c *gin.Context) {
 	}
 
 	if isExist, u := user.IsExist(); isExist {
-		session.Set("userInfo", u.Username)
+		session.Set("userInfo", u)
 		session.Save()
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
@@ -52,4 +52,11 @@ func Login(c *gin.Context) {
 			"message": "用户名或密码不正确",
 		})
 	}
+}
+
+func Logout(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Clear()
+	session.Save()
+	c.Redirect(http.StatusFound, "/")
 }

@@ -1,23 +1,29 @@
 package main
 
 import (
+	"encoding/gob"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-
 	. "prot/db"
+	"prot/middlewares"
 	. "prot/migrations"
+	"prot/models"
 	. "prot/utils"
 )
 
 func main() {
+
 	ConnDB()
 
 	InitDB()
 
+	gob.Register(models.User{})
+
 	r := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
-	r.Use(sessions.Sessions("session", store))
+	r.Use(sessions.Sessions("yyl", store))
+	r.Use(middlewares.Auth())
 
 	r.Static("/public", "./public")
 
