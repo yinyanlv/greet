@@ -6,11 +6,28 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"prot/utils"
+	"regexp"
+	"strings"
 )
+
+func init() {
+	for i, item := range checkLoginUrls {
+		if strings.Index(item, "/:") > -1 {
+			r1 := regexp.MustCompile(`:[a-zA-Z0-9_-]+`)
+			s := r1.ReplaceAllString(item, `[a-zA-Z0-9_-]+`)
+			r2 := regexp.MustCompile(s)
+			checkLoginRegexps[i] = r2
+		} else {
+			checkLoginRegexps[i] = nil
+		}
+	}
+}
 
 var checkLoginUrls = []string{
 	"/edit/article",
 }
+
+var checkLoginRegexps = make([]*regexp.Regexp, 10)
 
 func Auth() gin.HandlerFunc {
 
@@ -42,9 +59,16 @@ func Auth() gin.HandlerFunc {
 }
 
 func isNeedLogin(url string) bool {
-	for _, item := range checkLoginUrls {
-		if item == url {
-			return true
+	for i, item := range checkLoginUrls {
+
+		if strings.Index(item, "/:") > -1 {
+			if checkLoginRegexps[i].MatchString(url) {
+				return true
+			}
+		} else {
+			if item == url {
+				return true
+			}
 		}
 	}
 	return false
