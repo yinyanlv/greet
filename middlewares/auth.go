@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -33,7 +32,6 @@ func Auth() gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 		url := c.Request.URL.String()
-		fmt.Println(url)
 		session := sessions.Default(c)
 		if u := session.Get("userInfo"); u != nil {
 			c.Next()

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gomarkdown/markdown"
 	"html/template"
@@ -18,15 +19,40 @@ func RenderArticle(c *gin.Context) {
 	})
 }
 
+func RenderEditArticle(c *gin.Context) {
+	tag := models.Tag{}
+	tags, err := tag.Tags()
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error", gin.H{
+			"message": err,
+		})
+		return
+	}
+
+	id := c.Query("id")
+
+	if id == "" {
+		c.HTML(http.StatusOK, "edit", gin.H{
+			"tags": tags,
+		})
+	} else {
+
+	}
+}
+
 func CreateArticle(c *gin.Context) {
+	session := sessions.Default(c)
+	userInfo := session.Get("userInfo").(models.User)
+	userId := userInfo.ID
+
 	var article models.Article
 	var tags []string
 
 	c.BindJSON(&article)
 	article.Public = 1
 	article.Status = 1
-	article.CreatedBy = "bugong"
-	article.UpdatedBy = "bugong"
+	article.CreatedBy = userId
+	article.UpdatedBy = userId
 	tags = c.PostFormArray("tags")
 
 	fmt.Println(tags)

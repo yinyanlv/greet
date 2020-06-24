@@ -10,8 +10,7 @@ import (
 
 func RenderLogin(c *gin.Context) {
 
-	c.HTML(http.StatusOK, "login", gin.H{
-	})
+	c.HTML(http.StatusOK, "login", nil)
 }
 
 func Login(c *gin.Context) {
