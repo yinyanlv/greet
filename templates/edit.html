@@ -30,7 +30,7 @@
                 <div>
                     <select id="tags" name="tags" multiple>
                         {{ range .tags }}
-                            <option value="{{.Code}}">{{.Name}}</option>
+                            <option value="{{.ID}}">{{.Name}}</option>
                         {{end}}
                     </select>
                 </div>
@@ -94,7 +94,7 @@
 
         elem && Array.from(elem.options).forEach((item, index) => {
             if (item.selected) {
-                list.push(item.value);
+                list.push({id: item.value});
             }
         });
 

@@ -3,26 +3,26 @@ package models
 import . "prot/db"
 
 type Tag struct {
-	Common
-	Code string `grom:"type:varchar(20) not null"`
+	CommonTime
+	ID   string `grom:"primary_key;type:varchar(20) not null" json:"id"`
 	Name string `gorm:"type:varchar(20) not null"`
-	Sort uint8 `gorm:"type:tinyint unsigned"`
+	Sort uint8  `gorm:"type:tinyint unsigned"`
 }
 
 type TagResp struct {
-	Code string `json:"code"`
+	ID string `json:"id"`
 	Name string `json:"name"`
 }
 
 func (tag *Tag) Tags() (tags []TagResp, err error) {
 
-	if err = MysqlDB.Model(tag).Select([]string{"code", "name"}).Scan(&tags).Error; err != nil {
+	if err = MysqlDB.Model(tag).Select([]string{"id", "name"}).Scan(&tags).Error; err != nil {
 		return
 	}
 	return
 }
 
-func (tag Tag) Insert() (id uint, err error) {
+func (tag Tag) Insert() (id string, err error) {
 	result := MysqlDB.Create(&tag)
 	if result.Error != nil {
 		err = result.Error
@@ -33,7 +33,7 @@ func (tag Tag) Insert() (id uint, err error) {
 }
 
 func (tag *Tag) Update(id uint) (updatedTag TagResp, err error) {
-	if err = MysqlDB.Select([]string{"code", "name"}).First(&updatedTag, id).Error; err != nil {
+	if err = MysqlDB.Select([]string{"id", "name"}).First(&updatedTag, id).Error; err != nil {
 		return
 	}
 
@@ -46,7 +46,7 @@ func (tag *Tag) Update(id uint) (updatedTag TagResp, err error) {
 
 func (tag *Tag) Delete(id uint) (deletedTag TagResp, err error) {
 
-	if err = MysqlDB.Select([]string {"code", "name"}).First(tag, id).Error; err != nil {
+	if err = MysqlDB.Select([]string{"id", "name"}).First(tag, id).Error; err != nil {
 		return
 	}
 
@@ -54,7 +54,7 @@ func (tag *Tag) Delete(id uint) (deletedTag TagResp, err error) {
 		return
 	}
 
-	deletedTag.Code = (*tag).Code
+	deletedTag.ID = (*tag).ID
 	deletedTag.Name = (*tag).Name
 
 	return

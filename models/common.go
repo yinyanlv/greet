@@ -21,3 +21,9 @@ type CommonStrID struct {
 	UpdatedBy string     `gorm:"type:char(36)"`
 	DeletedBy string     `gorm:"type:char(36)"`
 }
+
+type CommonTime struct {
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time `sql:"index"`
+}

@@ -4,14 +4,14 @@ USE prot;
 
 CREATE TABLE IF NOT EXISTS user
 (
-    id        int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    username  varchar(20) UNIQUE             NOT NULL,
-    nickname  varchar(20),
-    password  varchar(40),
-    role      tinyint,
-    status    tinyint,
-    email     varchar(20),
-    phone     varchar(20),
+    id         int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    username   varchar(20) UNIQUE             NOT NULL,
+    nickname   varchar(20),
+    password   varchar(40),
+    role       tinyint,
+    status     tinyint,
+    email      varchar(20),
+    phone      varchar(20),
     created_by int,
     created_at datetime,
     updated_by int,
@@ -29,10 +29,9 @@ VALUES ('bugong');
 
 CREATE TABLE IF NOT EXISTS tag
 (
-    id        smallint PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    code      varchar(20)                         NOT NULL,
-    name      varchar(20)                         NOT NULL,
-    sort      int,
+    id         varchar(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name       varchar(20)                            NOT NULL,
+    sort       int,
     created_by int,
     created_at datetime,
     updated_by int,
@@ -42,55 +41,55 @@ CREATE TABLE IF NOT EXISTS tag
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VALUES ('wenzhang', '文章');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VALUES ('shuoshuo', '说说');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('riji', '日记');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('shenghuo', '生活');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('ganwu', '感悟');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('it', 'IT');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('go', 'Go');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('javascript', 'JavaScript');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('c', 'C');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('rust', 'Rust');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('java', 'Java');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('python', 'Python');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('typescript', 'Typescript');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('frontend', '前端');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('backend', '后端');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('mysql', 'MySql');
 
-INSERT INTO tag (code, name)
+INSERT INTO tag (id, name)
 VAlUES ('nosql', 'NoSql');
 
 
@@ -103,12 +102,12 @@ CREATE TABLE IF NOT EXISTS article
     public     tinyint,
     status     tinyint,
     view_count int,
-    created_by  int,
-    created_at  datetime,
-    updated_by  int,
-    updated_at  datetime,
-    deleted_by  int,
-    deleted_at  datetime
+    created_by int,
+    created_at datetime,
+    updated_by int,
+    updated_at datetime,
+    deleted_by int,
+    deleted_at datetime
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 

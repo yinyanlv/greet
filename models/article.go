@@ -13,6 +13,7 @@ type Article struct {
 	Public    uint8  `gorm:"type:tinyint unsigned"`
 	Status    uint8  `gorm:"type:tinyint unsigned"`
 	ViewCount uint   `gorm:"type:int unsigned"`
+	Tags      []Tag  `gorm:"many2many:article_tag"`
 }
 
 func (article *Article) Insert() (id string, err error) {
