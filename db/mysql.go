@@ -23,6 +23,7 @@ func ConnDB() {
 	fmt.Println("创建数据库连接成功！")
 
 	MysqlDB.SingularTable(true)
+	MysqlDB.LogMode(true)
 }
 
 func Close()  {

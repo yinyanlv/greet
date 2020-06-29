@@ -22,12 +22,17 @@ func RenderArticle(c *gin.Context) {
 		})
 		return
 	}
+	fmt.Println("%+v", a)
 	fmt.Println(a.Content)
 	md := []byte(a.Content)
 	content := string(markdown.ToHTML(md, nil, nil))
 
 	c.HTML(http.StatusOK, "article", gin.H{
+		"title": a.Title,
+		"tags": a.Tags,
 		"content": template.HTML(content),
+		"createdAt": a.CreatedAt,
+		"updatedAt": a.UpdatedAt,
 	})
 }
 
@@ -57,17 +62,28 @@ func CreateArticle(c *gin.Context) {
 	userInfo := session.Get("userInfo").(models.User)
 	userId := userInfo.ID
 
-	var article models.Article
+	fmt.Println(userId)
+
+	var articleReq models.ArticleReq
 	var tags []string
 
-	c.BindJSON(&article)
-	article.Public = 1
-	article.Status = 1
-	article.CreatedBy = userId
-	article.UpdatedBy = userId
-	tags = c.PostFormArray("tags")
+	c.BindJSON(&articleReq)
+	tags = articleReq.Tags
 
-	fmt.Println(tags)
+	tag := models.Tag{}
+
+	newTags,_ := tag.TagsByIDS(tags)
+
+	article := models.Article{
+		Title: articleReq.Title,
+		Summary: articleReq.Summary,
+		Tags: newTags,
+		Content: articleReq.Content,
+		CommonStrID: models.CommonStrID{
+			CreatedBy: userId,
+			UpdatedBy: userId,
+		},
+	}
 	article.Insert()
 
 	c.JSON(http.StatusOK, gin.H{

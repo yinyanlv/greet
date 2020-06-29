@@ -94,7 +94,7 @@
 
         elem && Array.from(elem.options).forEach((item, index) => {
             if (item.selected) {
-                list.push({id: item.value});
+                list.push(item.value);
             }
         });
 

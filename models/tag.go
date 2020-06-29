@@ -4,7 +4,7 @@ import . "prot/db"
 
 type Tag struct {
 	CommonTime
-	ID   string `grom:"primary_key;type:varchar(20) not null" json:"id"`
+	ID   string `grom:"type:varchar(20) not null;primary_key"`
 	Name string `gorm:"type:varchar(20) not null"`
 	Sort uint8  `gorm:"type:tinyint unsigned"`
 }
@@ -21,6 +21,15 @@ func (tag *Tag) Tags() (tags []TagResp, err error) {
 	}
 	return
 }
+
+func (tag *Tag) TagsByIDS(ids []string) (tags []Tag, err error) {
+
+	if err = MysqlDB.Model(tag).Select([]string{"id", "name"}).Where("id in (?)", ids).Scan(&tags).Error; err != nil {
+		return
+	}
+	return
+}
+
 
 func (tag Tag) Insert() (id string, err error) {
 	result := MysqlDB.Create(&tag)

@@ -16,11 +16,18 @@ type Article struct {
 	Tags      []Tag  `gorm:"many2many:article_tag"`
 }
 
+type ArticleReq struct {
+	Title     string
+	Summary   string
+	Content   string
+	Tags      []string
+}
+
 func (article *Article) Insert() (id string, err error) {
 
 	article.ID = NewV4().String()
 
-	if err = MysqlDB.Create(article).Error; err != nil {
+	if err = MysqlDB.Save(article).Error; err != nil {
 		return
 	}
 
@@ -30,7 +37,7 @@ func (article *Article) Insert() (id string, err error) {
 }
 
 func (article *Article) Article(id string) (a Article, err error) {
-	MysqlDB.Find(&a, id)
+	MysqlDB.Find(&a, "id = ?", id)
 	if err = MysqlDB.Model(&a).Related(&a.Tags, "Tags").Find(&a).Error; err != nil {
 		return
 	}
