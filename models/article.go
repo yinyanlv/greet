@@ -28,3 +28,11 @@ func (article *Article) Insert() (id string, err error) {
 
 	return
 }
+
+func (article *Article) Article(id string) (a Article, err error) {
+	MysqlDB.Find(&a, id)
+	if err = MysqlDB.Model(&a).Related(&a.Tags, "Tags").Find(&a).Error; err != nil {
+		return
+	}
+	return
+}

@@ -16,7 +16,7 @@ func InitRouter(r *gin.Engine) {
 
 	r.GET("/logout", Logout)
 
-	r.GET("/article", RenderArticle)
+	r.GET("/article/:id", RenderArticle)
 	r.POST("/article", CreateArticle)
 	r.PUT("/article/:id", UpdateArticle)
 	r.DELETE("/article/:id", DeleteArticle)

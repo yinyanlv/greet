@@ -11,7 +11,19 @@ import (
 )
 
 func RenderArticle(c *gin.Context) {
-	md := []byte("## 这里是文章内容")
+	id := c.Param("id")
+	article := models.Article{}
+	a, err := article.Article(id)
+	if err != nil {
+
+		c.HTML(http.StatusInternalServerError, "error", gin.H{
+			"errorCode": 599,
+			"message": err,
+		})
+		return
+	}
+	fmt.Println(a.Content)
+	md := []byte(a.Content)
 	content := string(markdown.ToHTML(md, nil, nil))
 
 	c.HTML(http.StatusOK, "article", gin.H{
