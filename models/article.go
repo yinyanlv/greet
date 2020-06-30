@@ -45,7 +45,10 @@ func (article *Article) Article(id string) (res Article, err error) {
 }
 
 func (article *Article) GetArticlesByPage(pageIndex uint8, pageSize uint8) (res []Article, err error) {
-	if err = MysqlDB.Model(article).Offset((pageIndex - 1) * pageSize).Limit(pageIndex).Preload("Tags").Find(&res).Error; err != nil {
+	if err = MysqlDB.Model(article).
+		Offset((pageIndex - 1) * pageSize).Limit(pageIndex).
+		Order("created_at desc").
+		Preload("Tags").Find(&res).Error; err != nil {
 		return
 	}
 

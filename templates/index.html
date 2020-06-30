@@ -5,12 +5,12 @@
             <ul>
                 <li><a href="/">Bugong</a></li>
                 <li><a href="/?type=wenzhang">文章</a></li>
-                <li><a href="/">说说</a></li>
-                <li><a href="/">归档</a></li>
-                <li><a href="/">关于</a></li>
+                <li><a href="/?type=shuoshuo">说说</a></li>
+                <li><a href="/?type=date">归档</a></li>
+                <li><a href="/about">关于</a></li>
             </ul>
             <div class="operate-box">
-                <span class="username">{.userInfo.Username}</span>
+                <span class="username">{{.userInfo.Username}}</span>
                 <a href="/logout">退出</a>
             </div>
         </nav>
@@ -25,7 +25,7 @@
                         {{range .Tags}}
                             <a class="tag" href="/?type={{.ID}}">{{.Name}}</a>
                         {{end}}
-                        <a class="tag">{{.CreatedAt}}</a>
+                        <a class="tag" href="/?type=date&date={{.CreatedAt}}">{{.CreatedAt}}</a>
                     </div>
                 </div>
                 <div class="summary-line">{{.Summary}}</div>
