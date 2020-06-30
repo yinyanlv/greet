@@ -4,13 +4,13 @@ import . "prot/db"
 
 type Tag struct {
 	CommonTime
-	ID   string `grom:"type:varchar(20) not null;primary_key"`
-	Name string `gorm:"type:varchar(20) not null"`
-	Sort uint8  `gorm:"type:tinyint unsigned"`
+	ID   string
+	Name string
+	Sort uint8
 }
 
 type TagResp struct {
-	ID string `json:"id"`
+	ID   string `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -29,7 +29,6 @@ func (tag *Tag) TagsByIDS(ids []string) (tags []Tag, err error) {
 	}
 	return
 }
-
 
 func (tag Tag) Insert() (id string, err error) {
 	result := MysqlDB.Create(&tag)

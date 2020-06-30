@@ -4,39 +4,34 @@ USE prot;
 
 CREATE TABLE IF NOT EXISTS user
 (
-    id         int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    username   varchar(20) UNIQUE             NOT NULL,
+    id         varchar(40) PRIMARY KEY NOT NULL,
+    username   varchar(20) UNIQUE      NOT NULL,
     nickname   varchar(20),
     password   varchar(40),
-    role       tinyint,
-    status     tinyint,
-    email      varchar(20),
+    salt       varchar(20),
+    role       tinyint UNSIGNED,
+    status     tinyint UNSIGNED,
+    email      varchar(30),
     phone      varchar(20),
-    created_by int,
+    created_by varchar(40),
     created_at datetime,
-    updated_by int,
+    updated_by varchar(40),
     updated_at datetime,
-    deleted_by int,
+    deleted_by varchar(40),
     deleted_at datetime
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-INSERT INTO user (username)
-VALUES ('admin');
-INSERT INTO user (username)
-VALUES ('bugong');
-
-
 CREATE TABLE IF NOT EXISTS tag
 (
-    id         varchar(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    name       varchar(20)                            NOT NULL,
+    id         varchar(20) PRIMARY KEY NOT NULL,
+    name       varchar(20)             NOT NULL,
     sort       int,
-    created_by int,
+    created_by varchar(40),
     created_at datetime,
-    updated_by int,
+    updated_by varchar(40),
     updated_at datetime,
-    deleted_by int,
+    deleted_by varchar(40),
     deleted_at datetime
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -95,18 +90,18 @@ VAlUES ('nosql', 'NoSql');
 
 CREATE TABLE IF NOT EXISTS article
 (
-    id         int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    title      varchar(200)                   NOT NULL,
-    summary    varchar(200)                   NOT NULL,
-    content    text                           NOT NULL,
-    public     tinyint,
-    status     tinyint,
-    view_count int,
-    created_by int,
+    id         varchar(40) PRIMARY KEY NOT NULL,
+    title      varchar(200)            NOT NULL,
+    summary    varchar(200)            NOT NULL,
+    content    text                    NOT NULL,
+    public     tinyint UNSIGNED,
+    status     tinyint UNSIGNED,
+    view_count int UNSIGNED,
+    created_by varchar(40),
     created_at datetime,
-    updated_by int,
+    updated_by varchar(40),
     updated_at datetime,
-    deleted_by int,
+    deleted_by varchar(40),
     deleted_at datetime
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -115,11 +110,10 @@ CREATE TABLE IF NOT EXISTS article
 CREATE TABLE IF NOT EXISTS article_tag
 (
     id         int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    article_id int,
-    tag_id     smallint,
-    sort       smallint,
-    CONSTRAINT article_tag_ibfk_1 FOREIGN KEY (article_id) REFERENCES article (id),
-    CONSTRAINT article_tag_ibfk_2 FOREIGN KEY (tag_id) REFERENCES tag (id)
+    article_id varchar(40),
+    tag_id     varchar(20)
+#     CONSTRAINT article_tag_ibfk_1 FOREIGN KEY (article_id) REFERENCES article (id),
+#     CONSTRAINT article_tag_ibfk_2 FOREIGN KEY (tag_id) REFERENCES tag (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 

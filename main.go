@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 	. "prot/db"
 	"prot/middlewares"
-	. "prot/migrations"
 	"prot/models"
 	. "prot/utils"
 )
@@ -16,8 +15,6 @@ import (
 func main() {
 
 	ConnDB()
-
-	InitDB()
 
 	gob.Register(models.User{})
 
