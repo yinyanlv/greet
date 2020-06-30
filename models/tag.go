@@ -14,7 +14,7 @@ type TagResp struct {
 	Name string `json:"name"`
 }
 
-func (tag *Tag) Tags() (tags []TagResp, err error) {
+func (tag *Tag) GetTags() (tags []TagResp, err error) {
 
 	if err = MysqlDB.Model(tag).Select([]string{"id", "name"}).Scan(&tags).Error; err != nil {
 		return
@@ -22,7 +22,7 @@ func (tag *Tag) Tags() (tags []TagResp, err error) {
 	return
 }
 
-func (tag *Tag) TagsByIDS(ids []string) (tags []Tag, err error) {
+func (tag *Tag) GetTagsByIDS(ids []string) (tags []Tag, err error) {
 
 	if err = MysqlDB.Model(tag).Select([]string{"id", "name"}).Where("id in (?)", ids).Scan(&tags).Error; err != nil {
 		return
@@ -30,8 +30,8 @@ func (tag *Tag) TagsByIDS(ids []string) (tags []Tag, err error) {
 	return
 }
 
-func (tag Tag) Insert() (id string, err error) {
-	result := MysqlDB.Create(&tag)
+func (tag *Tag) Insert() (id string, err error) {
+	result := MysqlDB.Create(tag)
 	if result.Error != nil {
 		err = result.Error
 		return
@@ -67,3 +67,4 @@ func (tag *Tag) Delete(id uint) (deletedTag TagResp, err error) {
 
 	return
 }
+

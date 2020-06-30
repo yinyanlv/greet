@@ -8,7 +8,7 @@ import (
 
 func GetTags(c *gin.Context)  {
 	tag := models.Tag{}
-	tags, err := tag.Tags()
+	tags, err := tag.GetTags()
 
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{

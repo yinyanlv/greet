@@ -36,10 +36,18 @@ func (article *Article) Insert() (id string, err error) {
 	return
 }
 
-func (article *Article) Article(id string) (a Article, err error) {
-	MysqlDB.Find(&a, "id = ?", id)
-	if err = MysqlDB.Model(&a).Related(&a.Tags, "Tags").Find(&a).Error; err != nil {
+func (article *Article) Article(id string) (res Article, err error) {
+	MysqlDB.Find(&res, "id = ?", id)
+	if err = MysqlDB.Model(&res).Related(&res.Tags, "Tags").Find(&res).Error; err != nil {
 		return
 	}
+	return
+}
+
+func (article *Article) GetArticlesByPage(pageIndex uint8, pageSize uint8) (res []Article, err error) {
+	if err = MysqlDB.Model(article).Offset((pageIndex - 1) * pageSize).Limit(pageIndex).Preload("Tags").Find(&res).Error; err != nil {
+		return
+	}
+
 	return
 }

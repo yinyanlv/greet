@@ -18,7 +18,7 @@ func RenderArticle(c *gin.Context) {
 
 		c.HTML(http.StatusInternalServerError, "error", gin.H{
 			"errorCode": 599,
-			"message": err,
+			"message":   err,
 		})
 		return
 	}
@@ -28,9 +28,9 @@ func RenderArticle(c *gin.Context) {
 	content := string(markdown.ToHTML(md, nil, nil))
 
 	c.HTML(http.StatusOK, "article", gin.H{
-		"title": a.Title,
-		"tags": a.Tags,
-		"content": template.HTML(content),
+		"title":     a.Title,
+		"tags":      a.Tags,
+		"content":   template.HTML(content),
 		"createdAt": a.CreatedAt,
 		"updatedAt": a.UpdatedAt,
 	})
@@ -38,7 +38,7 @@ func RenderArticle(c *gin.Context) {
 
 func RenderEditArticle(c *gin.Context) {
 	tag := models.Tag{}
-	tags, err := tag.Tags()
+	tags, err := tag.GetTags()
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error", gin.H{
 			"message": err,
@@ -70,25 +70,33 @@ func CreateArticle(c *gin.Context) {
 	c.BindJSON(&articleReq)
 	tags = articleReq.Tags
 
-	tag := models.Tag{}
+	tag := &models.Tag{}
 
-	newTags,_ := tag.TagsByIDS(tags)
+	newTags, _ := tag.GetTagsByIDS(tags)
 
 	article := models.Article{
-		Title: articleReq.Title,
+		Title:   articleReq.Title,
 		Summary: articleReq.Summary,
-		Tags: newTags,
+		Tags:    newTags,
 		Content: articleReq.Content,
 		CommonStrID: models.CommonStrID{
 			CreatedBy: userId,
 			UpdatedBy: userId,
 		},
 	}
-	id, _ := article.Insert()
+	id, err := article.Insert()
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"success": false,
+			"message": err,
+		})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"data": id,
+		"data":    id,
 	})
 }
 
