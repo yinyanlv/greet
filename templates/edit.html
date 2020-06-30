@@ -27,12 +27,10 @@
             </div>
             <div class="field-line">
                 <label>标签：</label>
-                <div>
-                    <select id="tags" name="tags" multiple>
-                        {{ range .tags }}
-                            <option value="{{.ID}}">{{.Name}}</option>
-                        {{end}}
-                    </select>
+                <div class="tags" id="tags-selector">
+                    {{ range .tags }}
+                        <span class="tag" data-id="{{.ID}}">{{.Name}}</span>
+                    {{end}}
                 </div>
             </div>
             <div class="field-line">
@@ -53,20 +51,34 @@
 <script type="text/javascript">
     let editor = null;
     document.addEventListener('DOMContentLoaded', () => {
-        const btnSubmit = document.getElementById('btn-submit');
+        const $tagsSelector = document.getElementById('tags-selector');
+        const $btnSubmit = document.getElementById('btn-submit');
 
         editor = new SimpleMDE({
             element: document.getElementById('content')
         });
 
-        btnSubmit.addEventListener('click', () => {
+        $tagsSelector.addEventListener('click', (e) => {
+            let node = e.target;
+            let classList = Array.from(node.classList);
+
+            if (classList.includes('tag')) {
+                if (classList.includes('active')) {
+                    node.className = 'tag';
+                } else {
+                    node.className = 'tag active';
+                }
+            }
+        })
+
+        $btnSubmit.addEventListener('click', () => {
             const params = getParams();
 
             axios.post('/article', params, {
                 withCredentials: true
             })
                 .then((res) => {
-                    console.log(res);
+                    window.location.href = `/article/${res.data.data}`;
                 })
                 .catch((err) => {
                     console.log(err);
@@ -83,19 +95,17 @@
         });
 
         result.content = editor.value();
-        result.tags = getMultiSelectValue('tags');
+        result.tags = getMultiSelectValue();
 
         return result;
     }
 
-    function getMultiSelectValue(id) {
+    function getMultiSelectValue() {
         const list = [];
-        const elem = document.getElementById(id);
+        const elems = document.querySelectorAll('#tags-selector .tag.active');
 
-        elem && Array.from(elem.options).forEach((item, index) => {
-            if (item.selected) {
-                list.push(item.value);
-            }
+        elems && Array.from(elems).forEach((item, index) => {
+            list.push(item.dataset.id);
         });
 
         return list;

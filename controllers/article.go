@@ -84,10 +84,11 @@ func CreateArticle(c *gin.Context) {
 			UpdatedBy: userId,
 		},
 	}
-	article.Insert()
+	id, _ := article.Insert()
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
+		"data": id,
 	})
 }
 
