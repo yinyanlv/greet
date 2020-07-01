@@ -47,9 +47,10 @@ func (article *Article) Article(id string) (res Article, err error) {
 func (article *Article) GetArticlesByTag(tag string, pageIndex uint64, pageSize uint64) (res []Article, err error) {
 	if tag == "" {
 		if err = MysqlDB.Model(article).
-			Preload("Tags").Find(&res).
-			Offset((pageIndex - 1) * pageSize).Limit(pageIndex).
-			Order("created_at desc").Error;
+			Preload("Tags").
+			Offset((pageIndex - 1) * pageSize).Limit(pageSize).
+			Order("created_at desc").
+			Find(&res).Error;
 			err != nil {
 			return
 		}
@@ -63,9 +64,37 @@ func (article *Article) GetArticlesByTag(tag string, pageIndex uint64, pageSize 
 		}
 		if err = MysqlDB.Model(article).
 			Where("id in (?)", ids).
-			Preload("Tags").Find(&res).
-			Offset((pageIndex - 1) * pageSize).Limit(pageIndex).
-			Order("created_at desc").Error;
+			Preload("Tags").
+			Offset((pageIndex - 1) * pageSize).Limit(pageSize).
+			Order("created_at desc").
+			Find(&res).Error;
+			err != nil {
+			return
+		}
+	}
+
+	return
+}
+
+func (article *Article) GetCountByTag(tag string) (count uint64, err error) {
+
+	if tag == "" {
+		if err = MysqlDB.Model(article).
+			Preload("Tags").Count(&count).Error;
+			err != nil {
+			return
+		}
+	} else {
+		ids := make([]string, 20)
+		if err = MysqlDB.Table("article_tag").Where("tag_id = ?", tag).Pluck("article_id", &ids).Error; err != nil {
+			return
+		}
+		if len(ids) == 0 {
+			return 0, nil
+		}
+		if err = MysqlDB.Model(article).
+			Where("id in (?)", ids).
+			Preload("Tags").Count(&count).Error;
 			err != nil {
 			return
 		}
@@ -78,9 +107,21 @@ func (article *Article) GetArticlesByYearMonth(y string, m string, pageIndex uin
 	if err = MysqlDB.Model(article).
 		Where("year(created_at) = ? and month(created_at) = ?", y, m).
 		Preload("Tags").Find(&res).
-		Offset((pageIndex - 1) * pageSize).Limit(pageIndex).
-		Order("created_at desc").
-		Error; err != nil {
+		Offset((pageIndex - 1) * pageSize).Limit(pageSize).
+		Order("created_at desc").Error;
+		err != nil {
+		return
+	}
+
+	return
+}
+
+func (article *Article) GetCountByYearMonth(y string, m string) (count uint64, err error) {
+	if err = MysqlDB.Model(article).
+		Where("year(created_at) = ? and month(created_at) = ?", y, m).
+		Preload("Tags").
+		Find(&count).Error;
+		err != nil {
 		return
 	}
 

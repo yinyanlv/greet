@@ -4,25 +4,16 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"prot/models"
-	"strconv"
+	"prot/utils"
 )
 
 func RenderListByTag(c *gin.Context) {
 	tag := c.Param("id")
-	pageIndex, _ := strconv.ParseUint(c.Query("page"), 10, 64)
-	pageSize, _ := strconv.ParseUint(c.Query("size"), 10, 64)
-	if pageIndex == 0 {
-		pageIndex = 1
-	}
-	if pageSize == 0 {
-		pageSize = 20
-	}
+	pageIndex, pageSize := utils.GetPage(c)
+
 	a := models.Article{}
-	var articles []models.Article
-	var err error
 
-	articles, err = a.GetArticlesByTag(tag, pageIndex, pageSize)
-
+	articles, err := a.GetArticlesByTag(tag, pageIndex, pageSize)
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error", gin.H{
 			"errorCode": 599,
@@ -30,6 +21,16 @@ func RenderListByTag(c *gin.Context) {
 		})
 		return
 	}
+
+	count, err := a.GetCountByTag("")
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error", gin.H{
+			"errorCode": 599,
+			"articles": err,
+		})
+		return
+	}
+	pagination := utils.GetPagination(count, pageIndex, pageSize)
 
 	t := models.Tag{}
 	tagObj, err := t.GetTagByID(tag)
@@ -46,6 +47,7 @@ func RenderListByTag(c *gin.Context) {
 		"pageCode":  tag,
 		"pageTitle": tagObj.Name,
 		"articles":  articles,
+		"pagination": pagination,
 	})
 }
 

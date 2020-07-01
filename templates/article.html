@@ -6,12 +6,12 @@
             <h2 class="title">{{.title}}</h2>
             <div class="tags">
                 {{ range .tags }}
-                    <a class="tag" href="{{.ID}}">{{.Name}}</a>
+                    <a class="tag" href="/tag/{{.ID}}">{{.Name}}</a>
                 {{end}}
             </div>
             <div class="info">
-                <span class="item"><label>创建时间：</label>{{.createdAt}}</span>
-                <span class="item"><label>修改时间：</label>{{.updatedAt}}</span>
+                <span class="item"><label>创建时间：</label>{{formatDatetime .createdAt}}</span>
+                <span class="item"><label>修改时间：</label>{{formatDatetime .updatedAt}}</span>
             </div>
             <div class="content">
                 {{.content}}

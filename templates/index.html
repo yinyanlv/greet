@@ -11,7 +11,8 @@
                             {{range .Tags}}
                                 <a class="tag" href="/tag/{{.ID}}">{{.Name}}</a>
                             {{end}}
-                            <a class="tag" href="/archive/{{.CreatedAt}}">{{formatDatetime .CreatedAt}}</a>
+                            <a class="tag"
+                               href="/archive/{{year .CreatedAt}}/{{month .CreatedAt}}">{{formatDatetime .CreatedAt}}</a>
                         </div>
                     </div>
                     <div class="summary-line">{{.Summary}}</div>
@@ -19,8 +20,12 @@
             {{end}}
         </div>
         <div class="pagination">
-            <a class="btn btn-prev">上一页</a>
-            <a class="btn btn-next">下一页</a>
+            {{if .pagination.IsShowPrev}}
+                <a class="btn btn-prev" href="/?page={{.pagination.PrevPage}}&size={{.pagination.PageSize}}">上一页</a>
+            {{end}}
+            {{if .pagination.IsShowNext}}
+                <a class="btn btn-next" href="/?page={{.pagination.NextPage}}&size={{.pagination.PageSize}}">下一页</a>
+            {{end}}
         </div>
     </main>
     <footer class="frame-footer">

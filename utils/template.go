@@ -1,14 +1,28 @@
 package utils
 
 import (
+	"html/template"
 	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/gin-contrib/multitemplate"
 )
+
+var funcMap = template.FuncMap{
+	"formatDatetime": func(dt time.Time) string {
+		return dt.Format("2006-01-02 15:04:05")
+	},
+	"year": func(dt time.Time) int {
+		return dt.Year()
+	},
+	"month": func(dt time.Time) int {
+		return int(dt.Month())
+	},
+}
 
 func LoadTemplateFiles(templateDir, suffix string, commonTpls []string) multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
@@ -19,7 +33,7 @@ func LoadTemplateFiles(templateDir, suffix string, commonTpls []string) multitem
 			filename := fi.Name()
 			p := path.Join(templateDir, filename)
 			tpls := append(append(arr, p), commonTpls...)
-			r.AddFromFiles(filename[0:len(filename)-len(suffix)], tpls...)
+			r.AddFromFilesFuncs(filename[0:len(filename)-len(suffix)], funcMap, tpls...)
 		}
 	}
 	return r
