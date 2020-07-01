@@ -23,7 +23,7 @@ func init() {
 }
 
 var checkLoginUrls = []string{
-	"/edit/article",
+	"/edit-article",
 }
 
 var checkLoginRegexps = make([]*regexp.Regexp, 10)

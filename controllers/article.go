@@ -22,12 +22,11 @@ func RenderArticle(c *gin.Context) {
 		})
 		return
 	}
-	fmt.Println("%+v", a)
-	fmt.Println(a.Content)
 	md := []byte(a.Content)
 	content := string(markdown.ToHTML(md, nil, nil))
 
 	c.HTML(http.StatusOK, "article", gin.H{
+		"pageCode": "article",
 		"title":     a.Title,
 		"tags":      a.Tags,
 		"content":   template.HTML(content),
@@ -37,6 +36,7 @@ func RenderArticle(c *gin.Context) {
 }
 
 func RenderEditArticle(c *gin.Context) {
+	session := sessions.Default(c)
 	tag := models.Tag{}
 	tags, err := tag.GetTags()
 	if err != nil {
@@ -47,13 +47,20 @@ func RenderEditArticle(c *gin.Context) {
 	}
 
 	id := c.Query("id")
+	userInfo := session.Get("userInfo")
 
 	if id == "" {
 		c.HTML(http.StatusOK, "edit", gin.H{
+			"pageCode": "edit-article",
+			"userInfo": userInfo,
 			"tags": tags,
 		})
 	} else {
-
+		c.HTML(http.StatusOK, "edit", gin.H{
+			"pageCode": "edit-article",
+			"userInfo": userInfo,
+			"tags": tags,
+		})
 	}
 }
 

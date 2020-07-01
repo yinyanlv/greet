@@ -44,7 +44,37 @@ func (article *Article) Article(id string) (res Article, err error) {
 	return
 }
 
-func (article *Article) GetArticlesByPage(pageIndex uint8, pageSize uint8) (res []Article, err error) {
+func (article *Article) GetArticlesByTag(tag string, pageIndex uint64, pageSize uint64) (res []Article, err error) {
+	if tag == "" {
+		if err = MysqlDB.Model(article).
+			Preload("Tags").Find(&res).
+			Offset((pageIndex - 1) * pageSize).Limit(pageIndex).
+			Order("created_at desc").Error;
+			err != nil {
+			return
+		}
+	} else {
+		ids := make([]string, 20)
+		if err = MysqlDB.Table("article_tag").Where("tag_id = ?", tag).Pluck("article_id", &ids).Error; err != nil {
+			return
+		}
+		if len(ids) == 0 {
+			return nil, nil
+		}
+		if err = MysqlDB.Model(article).
+			Where("id in (?)", ids).
+			Preload("Tags").Find(&res).
+			Offset((pageIndex - 1) * pageSize).Limit(pageIndex).
+			Order("created_at desc").Error;
+			err != nil {
+			return
+		}
+	}
+
+	return
+}
+
+func (article *Article) GetArticlesByDate(date string, pageIndex uint64, pageSize uint64) (res []Article, err error) {
 	if err = MysqlDB.Model(article).
 		Offset((pageIndex - 1) * pageSize).Limit(pageIndex).
 		Order("created_at desc").

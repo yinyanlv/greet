@@ -1,16 +1,6 @@
 {{template "common/head" .}}
 <div class="page-container">
-    <header class="frame-header">
-        <nav>
-            <ul>
-                <li><a href="/">Bugong</a></li>
-                <li><a href="/">文章</a></li>
-                <li><a href="/">说说</a></li>
-                <li><a href="/">归档</a></li>
-                <li><a href="/">关于</a></li>
-            </ul>
-        </nav>
-    </header>
+    {{template "common/nav" .}}
     <main>
         <article class="article">
             <h2 class="title">{{.title}}</h2>

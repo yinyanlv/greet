@@ -1,0 +1,27 @@
+{{template "common/head" .}}
+<div class="page-container">
+    {{template "common/nav" .}}
+    <main>
+        <div class="list-title">{{.pageTitle}}</div>
+        <div class="article-archive-list">
+            {{range .articles}}
+                <div class="item">
+                    <div class="title">
+                        <a href="/article/{{.ID}}">{{.Title}}</a>
+                    </div>
+                    <div class="datetime">
+                       {{.CreatedAt}}
+                    </div>
+                </div>
+            {{end}}
+        </div>
+        <div class="pagination">
+            <a class="btn btn-prev">上一页</a>
+            <a class="btn btn-next">下一页</a>
+        </div>
+    </main>
+    <footer class="frame-footer">
+        <div>© 2020 Bugong.</div>
+    </footer>
+</div>
+{{template "common/foot" .}}

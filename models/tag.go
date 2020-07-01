@@ -30,6 +30,14 @@ func (tag *Tag) GetTagsByIDS(ids []string) (tags []Tag, err error) {
 	return
 }
 
+func (tag *Tag) GetTagByID(id string) (res Tag, err error) {
+
+	if err = MysqlDB.Model(tag).Where("id = (?)", id).Find(&res).Error; err != nil {
+		return
+	}
+	return
+}
+
 func (tag *Tag) Insert() (id string, err error) {
 	result := MysqlDB.Create(tag)
 	if result.Error != nil {

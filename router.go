@@ -22,8 +22,11 @@ func InitRouter(r *gin.Engine) {
 	r.DELETE("/article/:id", DeleteArticle)
 
 	r.GET("/tags", GetTags)
+	r.GET("/tag/:id", RenderListByTag)
 
-	r.GET("/edit/article", RenderEditArticle)
+	r.GET("/archive", RenderArchive)
+
+	r.GET("/edit-article", RenderEditArticle)
 
 	r.NoMethod(Render404)
 	r.NoRoute(Render404)

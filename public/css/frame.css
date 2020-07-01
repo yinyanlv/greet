@@ -25,7 +25,7 @@ a {
 }
 
 a:hover {
-    color: #368CCB;
+    color: blue;
 }
 
 .btn, button {
@@ -79,6 +79,9 @@ a:hover {
     align-items: center;
 }
 
+.frame-header nav a.active {
+    color: blue;
+}
 
 .frame-header .operate-box {
     display: flex;
@@ -105,6 +108,40 @@ a:hover {
     align-items: center;
     justify-content: center;
     font-size: 1.6rem;
+}
+
+.list-title {
+    margin: 2rem 0;
+    line-height: 2.8rem;
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.article-archive-list {
+    padding-bottom: 1rem;
+}
+
+.article-archive-list .item {
+    padding: 1rem 0;
+    display: flex;
+}
+
+.article-archive-list .title {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 1rem;
+    font-size:1.4rem;
+    font-weight: bold;
+}
+
+.article-archive-list .datetime {
+    width: 18rem;
+    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .pagination {

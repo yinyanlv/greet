@@ -1,0 +1,18 @@
+{{define "common/nav"}}
+    <header class="frame-header">
+        <nav>
+            <ul>
+                <li><a href="/">Bugong</a></li>
+                <li><a {{if eq .pageCode "wenzhang"}}class="active"{{end}} href="/tag/wenzhang">文章</a></li>
+                <li><a {{if eq .pageCode "shuoshuo"}}class="active"{{end}} href="/tag/shuoshuo">说说</a></li>
+                <li><a {{if eq .pageCode "archive"}}class="active"{{end}} href="/archive">归档</a></li>
+            </ul>
+            {{if and .userInfo (eq .pageCode "edit-article")}}
+                <div class="operate-box">
+                    <span class="username">{{.userInfo.Username}}</span>
+                    <a href="/logout">退出</a>
+                </div>
+            {{end}}
+        </nav>
+    </header>
+{{end}}
