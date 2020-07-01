@@ -74,11 +74,13 @@ func (article *Article) GetArticlesByTag(tag string, pageIndex uint64, pageSize 
 	return
 }
 
-func (article *Article) GetArticlesByDate(date string, pageIndex uint64, pageSize uint64) (res []Article, err error) {
+func (article *Article) GetArticlesByYearMonth(y string, m string, pageIndex uint64, pageSize uint64) (res []Article, err error) {
 	if err = MysqlDB.Model(article).
+		Where("year(created_at) = ? and month(created_at) = ?", y, m).
+		Preload("Tags").Find(&res).
 		Offset((pageIndex - 1) * pageSize).Limit(pageIndex).
 		Order("created_at desc").
-		Preload("Tags").Find(&res).Error; err != nil {
+		Error; err != nil {
 		return
 	}
 

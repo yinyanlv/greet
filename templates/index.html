@@ -11,7 +11,7 @@
                             {{range .Tags}}
                                 <a class="tag" href="/tag/{{.ID}}">{{.Name}}</a>
                             {{end}}
-                            <a class="tag" href="/archive/{{.CreatedAt}}">{{.CreatedAt}}</a>
+                            <a class="tag" href="/archive/{{.CreatedAt}}">{{formatDatetime .CreatedAt}}</a>
                         </div>
                     </div>
                     <div class="summary-line">{{.Summary}}</div>

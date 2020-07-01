@@ -25,6 +25,7 @@ func InitRouter(r *gin.Engine) {
 	r.GET("/tag/:id", RenderListByTag)
 
 	r.GET("/archive", RenderArchive)
+	r.GET("/archive/:year/:month", RenderArchiveByYearMonth)
 
 	r.GET("/edit-article", RenderEditArticle)
 
