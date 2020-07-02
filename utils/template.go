@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"prot/models"
 	"strings"
 	"time"
 
@@ -21,6 +22,14 @@ var funcMap = template.FuncMap{
 	},
 	"month": func(dt time.Time) int {
 		return int(dt.Month())
+	},
+	"isActiveTag": func(id string, tags []models.Tag) bool {
+		for _, item := range tags {
+			if item.ID == id {
+				return true
+			}
+		}
+		return false
 	},
 }
 

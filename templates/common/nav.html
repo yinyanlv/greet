@@ -7,6 +7,11 @@
                 <li><a {{if eq .pageCode "shuoshuo"}}class="active"{{end}} href="/tag/shuoshuo">说说</a></li>
                 <li><a {{if eq .pageCode "archive"}}class="active"{{end}} href="/archive">归档</a></li>
             </ul>
+            {{if and .userInfo (eq .pageCode "article")}}
+                <div class="operate-box">
+                    <a href="/edit-article?id={{.id}}">编辑</a>
+                </div>
+            {{end}}
             {{if and .userInfo (eq .pageCode "edit-article")}}
                 <div class="operate-box">
                     <span class="username">{{.userInfo.Username}}</span>

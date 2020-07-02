@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/jinzhu/gorm"
 	. "github.com/satori/go.uuid"
 	. "prot/db"
 )
@@ -41,6 +42,11 @@ func (article *Article) Article(id string) (res Article, err error) {
 	if err = MysqlDB.Model(&res).Related(&res.Tags, "Tags").Find(&res).Error; err != nil {
 		return
 	}
+	return
+}
+
+func (article *Article) AddViewCount(id string) (err error) {
+	err = MysqlDB.Model(article).Where("id = ?", id).Update("view_count", gorm.Expr("view_count + 1")).Error
 	return
 }
 

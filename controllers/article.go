@@ -11,11 +11,13 @@ import (
 )
 
 func RenderArticle(c *gin.Context) {
+	session := sessions.Default(c)
+	userInfo := session.Get("userInfo")
 	id := c.Param("id")
 	article := models.Article{}
+	article.AddViewCount(id)
 	a, err := article.Article(id)
 	if err != nil {
-
 		c.HTML(http.StatusInternalServerError, "error", gin.H{
 			"errorCode": 599,
 			"message":   err,
@@ -26,7 +28,9 @@ func RenderArticle(c *gin.Context) {
 	content := string(markdown.ToHTML(md, nil, nil))
 
 	c.HTML(http.StatusOK, "article", gin.H{
-		"pageCode": "article",
+		"pageCode":  "article",
+		"userInfo":  userInfo,
+		"id":        a.ID,
 		"title":     a.Title,
 		"tags":      a.Tags,
 		"content":   template.HTML(content),
@@ -41,7 +45,8 @@ func RenderEditArticle(c *gin.Context) {
 	tags, err := tag.GetTags()
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"message": err,
+			"errorCode": 599,
+			"message":   err,
 		})
 		return
 	}
@@ -53,13 +58,28 @@ func RenderEditArticle(c *gin.Context) {
 		c.HTML(http.StatusOK, "edit", gin.H{
 			"pageCode": "edit-article",
 			"userInfo": userInfo,
-			"tags": tags,
+			"tags":     tags,
 		})
 	} else {
+		article := models.Article{}
+		article.AddViewCount(id)
+		a, err := article.Article(id)
+		if err != nil {
+			c.HTML(http.StatusInternalServerError, "error", gin.H{
+				"errorCode": 599,
+				"message":   err,
+			})
+			return
+		}
+
 		c.HTML(http.StatusOK, "edit", gin.H{
 			"pageCode": "edit-article",
 			"userInfo": userInfo,
-			"tags": tags,
+			"tags":     tags,
+			"title":    a.Title,
+			"summary":  a.Summary,
+			"curTags":  a.Tags,
+			"content":  a.Content,
 		})
 	}
 }
