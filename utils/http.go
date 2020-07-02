@@ -23,7 +23,7 @@ func GetPage(c *gin.Context) (uint64, uint64) {
 		pageIndex = 1
 	}
 	if pageSize == 0 {
-		pageSize = 1
+		pageSize = 20
 	}
 
 	return pageIndex, pageSize

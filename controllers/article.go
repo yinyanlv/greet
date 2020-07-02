@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gomarkdown/markdown"
@@ -89,8 +88,6 @@ func CreateArticle(c *gin.Context) {
 	userInfo := session.Get("userInfo").(models.User)
 	userId := userInfo.ID
 
-	fmt.Println(userId)
-
 	var articleReq models.ArticleReq
 	var tags []string
 
@@ -128,9 +125,62 @@ func CreateArticle(c *gin.Context) {
 }
 
 func UpdateArticle(c *gin.Context) {
+	session := sessions.Default(c)
+	userInfo := session.Get("userInfo").(models.User)
+	userId := userInfo.ID
+
+	var articleReq models.ArticleReq
+	var tags []string
+
+	c.BindJSON(&articleReq)
+	tags = articleReq.Tags
+
+	tag := &models.Tag{}
+
+	newTags, _ := tag.GetTagsByIDS(tags)
+
+	article := models.Article{
+		Title:   articleReq.Title,
+		Summary: articleReq.Summary,
+		Tags:    newTags,
+		Content: articleReq.Content,
+		CommonStrID: models.CommonStrID{
+			ID:      articleReq.ID,
+			UpdatedBy: userId,
+		},
+	}
+	id, err := article.Update()
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"success": false,
+			"message": err,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data":    id,
+	})
 
 }
 
 func DeleteArticle(c *gin.Context) {
+	id := c.Param("id")
+	a := models.Article{}
+	_, err := a.Delete(id)
 
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"success": false,
+			"message": err,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data":    id,
+	})
 }

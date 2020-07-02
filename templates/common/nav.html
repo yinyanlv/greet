@@ -9,13 +9,14 @@
             </ul>
             {{if and .userInfo (eq .pageCode "article")}}
                 <div class="operate-box">
-                    <a href="/edit-article?id={{.id}}">编辑</a>
+                    <a class="btn" href="/edit-article?id={{.id}}">编辑</a>
+                    <a id="btn-delete-article" class="btn" href="javascript:;">删除</a>
                 </div>
             {{end}}
             {{if and .userInfo (eq .pageCode "edit-article")}}
                 <div class="operate-box">
                     <span class="username">{{.userInfo.Username}}</span>
-                    <a href="/logout">退出</a>
+                    <a class="btn" href="/logout">退出</a>
                 </div>
             {{end}}
         </nav>

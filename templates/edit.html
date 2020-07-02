@@ -64,21 +64,40 @@
         $btnSubmit.addEventListener('click', () => {
             const params = getParams();
 
-            axios.post('/article', params, {
-                withCredentials: true
-            })
-                .then((res) => {
-                    window.location.href = `/article/${res.data.data}`;
+            if (params.id) {
+                axios.put('/article', params, {
+                    withCredentials: true
                 })
-                .catch((err) => {
-                    console.log(err);
-                });
+                    .then((res) => {
+                        window.location.href = `/article/${res.data.data}`;
+                    })
+                    .catch((err) => {
+                        alert(err);
+                    });
+            } else {
+                axios.post('/article', params, {
+                    withCredentials: true
+                })
+                    .then((res) => {
+                        window.location.href = `/article/${res.data.data}`;
+                    })
+                    .catch((err) => {
+                        alert(err);
+                    });
+            }
+
         }, false);
     }, false);
 
     function getParams() {
+        const search = window.location.search;
+        const id = search.indexOf('?id=') > -1 ? search.replace('?id=', '') : '';
         const inputs = document.querySelectorAll('input');
         let result = {};
+
+        if (id) {
+            result.id = id;
+        }
 
         inputs.forEach((item) => {
             result[item.name] = item.value;

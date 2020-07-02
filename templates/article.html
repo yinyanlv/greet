@@ -13,7 +13,7 @@
                 <span class="item"><label>创建时间：</label>{{formatDatetime .createdAt}}</span>
                 <span class="item"><label>修改时间：</label>{{formatDatetime .updatedAt}}</span>
             </div>
-            <div class="content">
+            <div class="content markdown-body">
                 {{.content}}
             </div>
         </article>
@@ -22,4 +22,30 @@
         <div>© 2020 Bugong.</div>
     </footer>
 </div>
+<script type="text/javascript">
+    const articleId = '{{.id}}';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const $btnDeleteArticle = document.getElementById('btn-delete-article');
+
+        $btnDeleteArticle && $btnDeleteArticle.addEventListener('click', (e) => {
+
+            if (confirm('你确定要删除？') && articleId) {
+                axios.delete('/article/' + articleId, {
+                    withCredentials: true
+                })
+                    .then(() => {
+                        window.location.href = '/';
+                    })
+                    .catch((err) => {
+                        alert(err);
+                    });
+            }
+        }, false);
+
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+    }, false);
+</script>
 {{template "common/foot" .}}

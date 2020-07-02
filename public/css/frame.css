@@ -46,7 +46,7 @@ a:hover {
     float: left;
 }
 
-.tag.active {
+.tag:hover, .tag.active {
     background: #000;
     color: #fff;
 }
@@ -54,7 +54,7 @@ a:hover {
 .page-container {
     margin: 0 auto;
     width: 98rem;
-    padding: 1rem;
+    padding: .5rem 1rem 0;
 }
 
 .page-title {
@@ -71,6 +71,7 @@ a:hover {
     font-size: 1.8rem;
     overflow-x: auto;
     overflow-y: hidden;
+    margin-bottom: 2rem;
 }
 
 .frame-header nav {
@@ -89,8 +90,12 @@ a:hover {
     align-items: center;
 }
 
+.frame-header .operate-box .btn {
+    margin-right: 1rem;
+}
+
 .frame-header .operate-box .username {
-    margin-right: .5rem;
+    margin-right: 1rem;
 }
 
 .frame-header li {
@@ -111,19 +116,21 @@ a:hover {
 }
 
 .list-title {
-    margin: 2rem 0;
+    margin: 0 0 1.5rem;
     line-height: 2.8rem;
     font-size: 2.2rem;
     font-weight: bold;
 }
 
-.article-archive-list {
-    padding-bottom: 1rem;
-}
-
 .article-archive-list .item {
     padding: 1rem 0;
+    line-height: 3rem;
+    border-top: .1rem #ddd dotted;
     display: flex;
+}
+
+.article-archive-list .item:last-child {
+    border-bottom: .1rem #ddd dotted;
 }
 
 .article-archive-list .title {
@@ -131,12 +138,13 @@ a:hover {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    padding-right: 1rem;
-    font-size:1.4rem;
+    padding: 0 1rem 0 .5rem;
+    font-size: 1.6rem;
     font-weight: bold;
 }
 
 .article-archive-list .datetime {
+    padding-right: .5rem;
     width: 18rem;
     text-align: right;
     overflow: hidden;
@@ -157,21 +165,17 @@ a:hover {
     text-align: center;
     font-weight: bold;
     padding: 0 1rem;
-    height: 5rem;
-    line-height: 4.6rem;
+    height: 3.4rem;
+    line-height: 3rem;
     font-size: 1.6rem;
 }
 
 .pagination .btn-prev {
-    float:left;
+    float: left;
 }
 
 .pagination .btn-next {
     float: right;
-}
-
-.article-list {
-
 }
 
 .article-list .item:first-child {
@@ -207,7 +211,7 @@ a:hover {
 }
 
 .article {
-    padding: 2rem 0 1rem;
+    padding: 0 0 1rem;
 }
 
 .article .title {
@@ -218,13 +222,13 @@ a:hover {
 }
 
 .article .tags {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     overflow: hidden;
     padding: 0 .2rem;
 }
 
 .article .info {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     color: #738292;
     font-size: 1.4rem;
 }

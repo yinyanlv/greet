@@ -18,6 +18,7 @@ type Article struct {
 }
 
 type ArticleReq struct {
+	ID      string
 	Title   string
 	Summary string
 	Content string
@@ -33,6 +34,30 @@ func (article *Article) Insert() (id string, err error) {
 	}
 
 	id = article.ID
+
+	return
+}
+
+func (article *Article) Update() (id string, err error) {
+
+	if err = MysqlDB.Table("article_tag").Where("article_id = ?", article.ID).Delete(nil).Error; err != nil {
+		return
+	}
+
+	if err = MysqlDB.Save(article).Error; err != nil {
+		return
+	}
+
+	id = article.ID
+
+	return
+}
+
+func (article *Article) Delete(id string) (res string, err error) {
+	res = id
+	if err = MysqlDB.Table("article").Where("id = ?", id).Delete(nil).Error; err != nil {
+		return
+	}
 
 	return
 }
