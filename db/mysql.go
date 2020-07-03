@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	log "github.com/sirupsen/logrus"
 	"prot/etc"
 )
 
@@ -23,14 +24,17 @@ func ConnDB() {
 	MysqlDB, err = gorm.Open("mysql", connStr)
 
 	if err != nil {
-		fmt.Errorf("创建数据库连接失败：%v", err)
+		log.Fatalf("创建数据库连接失败：%v", err)
 		return
 	}
 
-	fmt.Println("创建数据库连接成功！")
+	log.Info("创建数据库连接成功！")
 
 	MysqlDB.SingularTable(true)
-	MysqlDB.LogMode(true)
+
+	if etc.AppMode == "dev" {
+		MysqlDB.LogMode(true)
+	}
 }
 
 func Close() {

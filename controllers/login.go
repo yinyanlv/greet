@@ -19,18 +19,14 @@ func Login(c *gin.Context) {
 	userReq := UserReq{}
 
 	if err := c.BindJSON(&userReq); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err,
-		})
+		utils.HandleError(c, "json", 599, err)
 		return
 	}
 
 	pwd, err  := utils.GenMD5Pwd(userReq.Password)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err,
-		})
+		utils.HandleError(c, "json", 599, err)
 		return
 	}
 

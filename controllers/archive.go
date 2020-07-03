@@ -16,29 +16,23 @@ func RenderArchive(c *gin.Context) {
 
 	articles, err = a.GetArticlesByTag("", pageIndex, pageSize)
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"message":   err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 
 	count, err := a.GetCountByTag("")
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"articles": err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 	pagination := utils.GetPagination(count, pageIndex, pageSize)
 
 	c.HTML(http.StatusOK, "list", gin.H{
-		"pageCode":  "archive",
-		"pageTitle": "归档",
-		"articles":  articles,
+		"pageCode":   "archive",
+		"pageTitle":  "归档",
+		"articles":   articles,
 		"pagination": pagination,
-		"baseUrl": "/archive",
+		"baseUrl":    "/archive",
 	})
 }
 
@@ -54,28 +48,22 @@ func RenderArchiveByYearMonth(c *gin.Context) {
 
 	articles, err = a.GetArticlesByYearMonth(year, month, pageIndex, pageSize)
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"message":   err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 
 	count, err := a.GetCountByTag("")
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"articles": err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 	pagination := utils.GetPagination(count, pageIndex, pageSize)
 
 	c.HTML(http.StatusOK, "list", gin.H{
-		"pageCode":  "archive",
-		"pageTitle": "归档 " + year + "-" + month,
-		"articles":  articles,
+		"pageCode":   "archive",
+		"pageTitle":  "归档 " + year + "-" + month,
+		"articles":   articles,
 		"pagination": pagination,
-		"baseUrl": "/archive/" + year + "/" + month,
+		"baseUrl":    "/archive/" + year + "/" + month,
 	})
 }

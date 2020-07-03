@@ -5,7 +5,6 @@ protocol = "http"
 host = "localhost"
 port = 9000
 public_path = "/public"
-debug = true
 
 [mysql]
 host = "localhost"
@@ -16,6 +15,3 @@ db = "prot"
 
 [log]
 dir = "logs"
-format = ""
-mode = ""  # close, file, stdout
-access = true  # 是否记录浏览器访问系统时产生的日志

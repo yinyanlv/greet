@@ -2,6 +2,7 @@ package utils
 
 import (
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 	"strconv"
 )
 
@@ -55,5 +56,29 @@ func GetPagination(count uint64, pageIndex uint64, pageSize uint64) Pagination {
 		PrevPage:   pageIndex - 1,
 		NextPage:   pageIndex + 1,
 		PageSize:   pageSize,
+	}
+}
+
+func HandleError(c *gin.Context, t string, code int, err error) {
+	errStr := ""
+	if err != nil {
+		errStr = err.Error()
+	}
+	log.WithFields(log.Fields{
+		"url":        c.Request.URL.String(),
+		"user_agent": c.Request.UserAgent(),
+		"ip":     c.ClientIP(),
+	}).Error(errStr)
+
+	if t == "html" {
+		c.HTML(code, "error", gin.H{
+			"errorCode": code,
+			"message":   err,
+		})
+	} else {
+		c.JSON(code, gin.H{
+			"success": false,
+			"message": err,
+		})
 	}
 }

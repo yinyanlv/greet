@@ -12,7 +12,6 @@ import (
 )
 
 func main() {
-
 	ConnDB()
 
 	gob.Register(models.User{})
@@ -28,7 +27,6 @@ func main() {
 
 	commonTpls := GetFileList("./templates/common", ".html")
 	r.HTMLRender = LoadTemplateFiles("./templates", ".html", commonTpls)
-
 
 	InitRouter(r)
 

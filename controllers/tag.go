@@ -15,19 +15,13 @@ func RenderListByTag(c *gin.Context) {
 
 	articles, err := a.GetArticlesByTag(tag, pageIndex, pageSize)
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"message":   err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 
 	count, err := a.GetCountByTag("")
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"articles": err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 	pagination := utils.GetPagination(count, pageIndex, pageSize)
@@ -36,10 +30,7 @@ func RenderListByTag(c *gin.Context) {
 	tagObj, err := t.GetTagByID(tag)
 
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"message":   err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 

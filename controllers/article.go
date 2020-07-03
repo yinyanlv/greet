@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"net/http"
 	"prot/models"
+	"prot/utils"
 )
 
 func RenderArticle(c *gin.Context) {
@@ -17,10 +18,7 @@ func RenderArticle(c *gin.Context) {
 	article.AddViewCount(id)
 	a, err := article.Article(id)
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"message":   err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 	md := []byte(a.Content)
@@ -43,10 +41,7 @@ func RenderEditArticle(c *gin.Context) {
 	tag := models.Tag{}
 	tags, err := tag.GetTags()
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"message":   err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 
@@ -64,10 +59,7 @@ func RenderEditArticle(c *gin.Context) {
 		article.AddViewCount(id)
 		a, err := article.Article(id)
 		if err != nil {
-			c.HTML(http.StatusInternalServerError, "error", gin.H{
-				"errorCode": 599,
-				"message":   err,
-			})
+			utils.HandleError(c, "html", 599, err)
 			return
 		}
 
@@ -111,10 +103,7 @@ func CreateArticle(c *gin.Context) {
 	id, err := article.Insert()
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"success": false,
-			"message": err,
-		})
+		utils.HandleError(c, "json", 599, err)
 		return
 	}
 
@@ -152,10 +141,7 @@ func UpdateArticle(c *gin.Context) {
 	id, err := article.Update()
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"success": false,
-			"message": err,
-		})
+		utils.HandleError(c, "json", 599, err)
 		return
 	}
 
@@ -172,10 +158,7 @@ func DeleteArticle(c *gin.Context) {
 	_, err := a.Delete(id)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"success": false,
-			"message": err,
-		})
+		utils.HandleError(c, "json", 599, err)
 		return
 	}
 

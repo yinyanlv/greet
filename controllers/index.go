@@ -17,19 +17,13 @@ func RenderIndex(c *gin.Context) {
 
 	articles, err = a.GetArticlesByTag("", pageIndex, pageSize)
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"articles": err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 
 	count, err := a.GetCountByTag("")
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"articles": err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 	pagination := utils.GetPagination(count, pageIndex, pageSize)

@@ -12,10 +12,7 @@ func RenderRegister(c *gin.Context) {
 	count, err := u.Count()
 
 	if err != nil {
-		c.HTML(http.StatusInternalServerError, "error", gin.H{
-			"errorCode": 599,
-			"message":   err,
-		})
+		utils.HandleError(c, "html", 599, err)
 		return
 	}
 
@@ -31,19 +28,14 @@ func Register(c *gin.Context) {
 	userReq := UserReq{}
 
 	if err := c.BindJSON(&userReq); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"errorCode": 599,
-			"message": err,
-		})
+		utils.HandleError(c, "json", 599, err)
 		return
 	}
 
 	pwd, err  := utils.GenMD5Pwd(userReq.Password)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err,
-		})
+		utils.HandleError(c, "json", 599, err)
 		return
 	}
 
@@ -60,9 +52,7 @@ func Register(c *gin.Context) {
 	}
 
 	if _, err := user.Insert(); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err,
-		})
+		utils.HandleError(c, "json", 599, err)
 		return
 	}
 

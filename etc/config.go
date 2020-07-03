@@ -20,7 +20,6 @@ type Config struct {
 	Host       string `toml:"host"`
 	Port       uint16 `toml:"port"`
 	PublicPath string `toml:"public_path"`
-	Debug      bool   `toml:"debug"`
 	MySQL      MySQLConfig
 	Log        LogConfig
 }
@@ -34,10 +33,7 @@ type MySQLConfig struct {
 }
 
 type LogConfig struct {
-	Dir    string `toml:"dir"`
-	Format string `toml:"format"`
-	Mode   string `toml:"mode"`
-	Access bool   `toml:"access"`
+	Dir string `toml:"dir"`
 }
 
 func init() {
