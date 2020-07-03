@@ -42,7 +42,7 @@ a:hover {
     border: .2rem solid #000;
     font-size: 1.3rem;
     line-height: 1.6rem;
-    margin-right: 1rem;
+    margin: 0 1rem 1rem 0;
     float: left;
 }
 
@@ -64,14 +64,14 @@ a:hover {
     font-weight: bold;
 }
 
-.login-box{
+.login-box {
     width: 400px;
     margin: 0 auto;
     padding: 1rem 0 !important;
 }
 
 .login-box .btn-line {
-    margin-top:2rem;
+    margin-top: 2rem;
 }
 
 .frame-header {
@@ -215,7 +215,6 @@ a:hover {
 }
 
 .article-list .summary-line {
-    margin-top: 1rem;
     font-size: 1.8rem;
     line-height: 2.8rem;
 }
@@ -238,7 +237,7 @@ a:hover {
 }
 
 .article .info {
-    margin-top: 1.5rem;
+    margin-top: .5rem;
     color: #738292;
     font-size: 1.4rem;
 }
@@ -264,7 +263,7 @@ a:hover {
 
 .error-box .error-info {
     margin-top: 2rem;
-    font-size:1.6rem;
+    font-size: 1.6rem;
 }
 
 .form-container {
@@ -295,10 +294,47 @@ a:hover {
 }
 
 .btn-line {
-    margin-top:1rem;
+    margin-top: 1rem;
     text-align: center;
 }
 
 .btn-line button {
     padding: .5rem 2rem;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+    .frame-header {
+        height: auto;
+    }
+
+    .frame-header nav {
+        display: block;
+    }
+
+    .frame-header nav .operate-box {
+        justify-content: flex-end;
+    }
+
+    .page-container {
+        margin: 0 auto;
+        width: 100%;
+        padding: .5rem 1rem 0;
+    }
+
+    .article-archive-list .item {
+        display: block;
+    }
+
+    .article-archive-list .datetime {
+        width: 100%;
+        text-align: right;
+    }
+
+    .login-box{
+        width: 100%;
+    }
 }
