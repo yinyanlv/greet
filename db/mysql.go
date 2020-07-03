@@ -2,16 +2,23 @@ package db
 
 import (
 	"fmt"
-
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"prot/etc"
 )
 
 var MysqlDB *gorm.DB
 var err error
 
 func ConnDB() {
-	connStr := "root:111111@tcp(127.0.0.1:3306)/prot?charset=utf8&parseTime=True&loc=Local"
+	c := etc.AppConfig
+	connStr := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
+		c.MySQL.Username,
+		c.MySQL.Password,
+		c.MySQL.Host,
+		c.MySQL.Port,
+		c.MySQL.DB,
+	)
 
 	MysqlDB, err = gorm.Open("mysql", connStr)
 
@@ -26,6 +33,6 @@ func ConnDB() {
 	MysqlDB.LogMode(true)
 }
 
-func Close()  {
+func Close() {
 	MysqlDB.Close()
 }

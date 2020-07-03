@@ -58,3 +58,8 @@ func (user User) IsExist() (bool, User) {
 		return false, User{}
 	}
 }
+
+func (user *User) Count() (count uint32, err error) {
+	err = MysqlDB.Model(user).Count(&count).Error
+	return
+}

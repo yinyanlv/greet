@@ -1,5 +1,6 @@
 name = "prot"
 version = "0.0.1"
+mode = "dev"
 protocol = "http"
 host = "localhost"
 port = 9000

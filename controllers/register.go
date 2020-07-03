@@ -8,9 +8,22 @@ import (
 )
 
 func RenderRegister(c *gin.Context) {
+	u := User{}
+	count, err := u.Count()
 
-	c.HTML(http.StatusOK, "register", gin.H{
-	})
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error", gin.H{
+			"errorCode": 599,
+			"message":   err,
+		})
+		return
+	}
+
+	if count > 0 {
+		c.Redirect(http.StatusMovedPermanently, "/404")
+	}  else {
+		c.HTML(http.StatusOK, "register", nil)
+	}
 }
 
 func Register(c *gin.Context) {
@@ -19,6 +32,7 @@ func Register(c *gin.Context) {
 
 	if err := c.BindJSON(&userReq); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
+			"errorCode": 599,
 			"message": err,
 		})
 		return
