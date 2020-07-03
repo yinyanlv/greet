@@ -1,7 +1,6 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
 	. "github.com/satori/go.uuid"
 	. "prot/db"
 )
@@ -26,7 +25,6 @@ type ArticleReq struct {
 }
 
 func (article *Article) Insert() (id string, err error) {
-
 	article.ID = NewV4().String()
 
 	if err = MysqlDB.Save(article).Error; err != nil {
@@ -71,7 +69,7 @@ func (article *Article) Article(id string) (res Article, err error) {
 }
 
 func (article *Article) AddViewCount(id string) (err error) {
-	err = MysqlDB.Model(article).Where("id = ?", id).Update("view_count", gorm.Expr("view_count + 1")).Error
+	err = MysqlDB.Exec("UPDATE article SET view_count = view_count + 1 WHERE id = ?", id).Error
 	return
 }
 
@@ -108,7 +106,6 @@ func (article *Article) GetArticlesByTag(tag string, pageIndex uint64, pageSize 
 }
 
 func (article *Article) GetCountByTag(tag string) (count uint64, err error) {
-
 	if tag == "" {
 		if err = MysqlDB.Model(article).
 			Preload("Tags").Count(&count).Error;

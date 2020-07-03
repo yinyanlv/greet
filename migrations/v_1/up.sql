@@ -36,56 +36,56 @@ CREATE TABLE IF NOT EXISTS tag
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-INSERT INTO tag (id, name)
-VALUES ('wenzhang', '文章');
+INSERT INTO tag (id, name, sort)
+VALUES ('wenzhang', '文章', 1);
 
-INSERT INTO tag (id, name)
-VALUES ('shuoshuo', '说说');
+INSERT INTO tag (id, name, sort)
+VALUES ('shuoshuo', '说说', 2);
 
-INSERT INTO tag (id, name)
-VAlUES ('riji', '日记');
+INSERT INTO tag (id, name, sort)
+VAlUES ('shenghuo', '生活', 3);
 
-INSERT INTO tag (id, name)
-VAlUES ('shenghuo', '生活');
+INSERT INTO tag (id, name, sort)
+VAlUES ('ganwu', '感悟', 4);
 
-INSERT INTO tag (id, name)
-VAlUES ('ganwu', '感悟');
+INSERT INTO tag (id, name, sort)
+VAlUES ('riji', '日记', 5);
 
-INSERT INTO tag (id, name)
-VAlUES ('it', 'IT');
+INSERT INTO tag (id, name, sort)
+VAlUES ('it', 'IT', 6);
 
-INSERT INTO tag (id, name)
-VAlUES ('go', 'Go');
+INSERT INTO tag (id, name, sort)
+VAlUES ('frontend', '前端', 7);
 
-INSERT INTO tag (id, name)
-VAlUES ('javascript', 'JavaScript');
+INSERT INTO tag (id, name, sort)
+VAlUES ('backend', '后端', 8);
 
-INSERT INTO tag (id, name)
-VAlUES ('c', 'C');
+INSERT INTO tag (id, name, sort)
+VAlUES ('javascript', 'JavaScript', 9);
 
-INSERT INTO tag (id, name)
-VAlUES ('rust', 'Rust');
+INSERT INTO tag (id, name, sort)
+VAlUES ('go', 'Go', 10);
 
-INSERT INTO tag (id, name)
-VAlUES ('java', 'Java');
+INSERT INTO tag (id, name, sort)
+VAlUES ('c', 'C', 11);
 
-INSERT INTO tag (id, name)
-VAlUES ('python', 'Python');
+INSERT INTO tag (id, name, sort)
+VAlUES ('rust', 'Rust', 12);
 
-INSERT INTO tag (id, name)
-VAlUES ('typescript', 'Typescript');
+INSERT INTO tag (id, name, sort)
+VAlUES ('python', 'Python', 13);
 
-INSERT INTO tag (id, name)
-VAlUES ('frontend', '前端');
+INSERT INTO tag (id, name, sort)
+VAlUES ('java', 'Java', 14);
 
-INSERT INTO tag (id, name)
-VAlUES ('backend', '后端');
+INSERT INTO tag (id, name, sort)
+VAlUES ('typescript', 'TypeScript', 15);
 
-INSERT INTO tag (id, name)
-VAlUES ('mysql', 'MySql');
+INSERT INTO tag (id, name, sort)
+VAlUES ('database', '数据库', 16);
 
-INSERT INTO tag (id, name)
-VAlUES ('nosql', 'NoSql');
+INSERT INTO tag (id, name, sort)
+VAlUES ('mysql', 'MySql', 17);
 
 
 CREATE TABLE IF NOT EXISTS article
