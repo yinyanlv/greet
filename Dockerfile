@@ -10,5 +10,6 @@ ADD . /root/github/prot
 RUN go build .
 #暴露端口
 EXPOSE 8080
+EXPOSE 9000
 #最终运行docker的命令
 ENTRYPOINT  ["./prot", "-mode", "prod"]

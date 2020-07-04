@@ -24,11 +24,11 @@ func ConnDB() {
 	MysqlDB, err = gorm.Open("mysql", connStr)
 
 	if err != nil {
-		log.Fatalf("创建数据库连接失败：%v", err)
+		log.Fatalf("连接数据库失败：%v", err)
 		return
 	}
 
-	log.Info("创建数据库连接成功！")
+	log.Info("连接数据库成功！")
 
 	MysqlDB.SingularTable(true)
 
