@@ -24,7 +24,7 @@ func ConnDB() {
 	MysqlDB, err = gorm.Open("mysql", connStr)
 
 	if err != nil {
-		log.Fatalf("连接数据库失败：%v", err)
+		log.Fatalf("连接数据库失败：%v，连接字符串为：%s", err, connStr)
 		return
 	}
 
