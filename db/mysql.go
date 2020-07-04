@@ -13,11 +13,18 @@ var err error
 
 func ConnDB() {
 	c := etc.AppConfig
-	connStr := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
+	var hostStr string
+
+	if c.MySQL.Port != 0 {
+		hostStr = fmt.Sprintf("%s:%d", c.MySQL.Host, c.MySQL.Port)
+	} else {
+		hostStr = c.MySQL.Host
+	}
+
+	connStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		c.MySQL.Username,
 		c.MySQL.Password,
-		c.MySQL.Host,
-		c.MySQL.Port,
+		hostStr,
 		c.MySQL.DB,
 	)
 
