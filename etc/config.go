@@ -18,7 +18,7 @@ type Config struct {
 	Mode       string `toml:"mode"`
 	Protocol   string `toml:"protocol"`
 	Host       string `toml:"host"`
-	Port       uint16 `toml:"port"`
+	Port       int    `toml:"port"`
 	PublicPath string `toml:"public_path"`
 	MySQL      MySQLConfig
 	Log        LogConfig
@@ -26,7 +26,7 @@ type Config struct {
 
 type MySQLConfig struct {
 	Host     string `toml:"host"`
-	Port     uint32 `toml:"port"`
+	Port     int    `toml:"port"`
 	Username string `toml:"username"`
 	Password string `toml:"password"`
 	DB       string `toml:"db"`

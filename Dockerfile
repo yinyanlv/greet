@@ -11,4 +11,4 @@ RUN go build .
 #暴露端口
 EXPOSE 8080
 #最终运行docker的命令
-ENTRYPOINT  ["./prot"]
+ENTRYPOINT  ["./prot -mode prod"]

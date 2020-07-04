@@ -6,9 +6,11 @@ import (
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	. "prot/db"
+	"prot/etc"
 	"prot/middlewares"
 	"prot/models"
 	. "prot/utils"
+	"strconv"
 )
 
 func main() {
@@ -30,5 +32,5 @@ func main() {
 
 	InitRouter(r)
 
-	r.Run(":9000")
+	r.Run(":" + strconv.Itoa(etc.AppConfig.Port))
 }
