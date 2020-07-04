@@ -9,8 +9,6 @@ import (
 	"time"
 )
 
-var Log log.Logger
-
 func init() {
 	log.SetFormatter(&log.JSONFormatter{})
 	log.SetOutput(os.Stdout)

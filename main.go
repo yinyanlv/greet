@@ -15,8 +15,11 @@ import (
 
 func main() {
 	ConnDB()
-
 	gob.Register(models.User{})
+
+	if etc.AppMode == "prod" {
+		gin.SetMode(gin.ReleaseMode)
+	}
 
 	r := gin.Default()
 
