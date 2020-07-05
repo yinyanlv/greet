@@ -37,3 +37,4 @@ func RenderIndex(c *gin.Context) {
 		"pagination": pagination,
 	})
 }
+

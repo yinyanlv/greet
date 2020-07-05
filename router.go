@@ -27,6 +27,8 @@ func InitRouter(r *gin.Engine) {
 	r.GET("/archive", RenderArchive)
 	r.GET("/archive/:year/:month", RenderArchiveByYearMonth)
 
+	r.GET("/search", RenderSearch)
+
 	r.GET("/edit-article", RenderEditArticle)
 
 	r.NoMethod(Render404)

@@ -105,6 +105,22 @@ func (article *Article) GetArticlesByTag(tag string, pageIndex uint64, pageSize 
 	return
 }
 
+func (article *Article) GetArticlesByKeywords(keywords string) (res []Article, err error) {
+	if keywords == "" {
+		return nil, nil
+	}
+
+	if err = MysqlDB.Model(article).
+		Where("concat(ifnull(title, ''),ifnull(summary, ''),ifnull(content, '')) like ?", "%" + keywords + "%").
+		Order("created_at desc").
+		Find(&res).Error;
+		err != nil {
+		return
+	}
+
+	return
+}
+
 func (article *Article) GetCountByTag(tag string) (count uint64, err error) {
 	if tag == "" {
 		if err = MysqlDB.Model(article).
