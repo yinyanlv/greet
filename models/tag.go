@@ -22,7 +22,7 @@ func (tag *Tag) GetTags() (tags []TagResp, err error) {
 }
 
 func (tag *Tag) GetTagsByIDS(ids []string) (tags []Tag, err error) {
-	if err = MysqlDB.Model(tag).Select([]string{"id", "name"}).Where("id in (?)", ids).Order("sort asc").Scan(&tags).Error; err != nil {
+	if err = MysqlDB.Model(tag).Select([]string{"id", "name", "sort"}).Where("id in (?)", ids).Order("sort asc").Scan(&tags).Error; err != nil {
 		return
 	}
 	return
