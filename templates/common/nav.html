@@ -7,8 +7,15 @@
                 <li><a {{if eq .pageCode "shuoshuo"}}class="active"{{end}} href="/tag/shuoshuo">说说</a></li>
                 <li><a {{if eq .pageCode "archive"}}class="active"{{end}} href="/archive">归档</a></li>
             </ul>
+            {{$pageList := toSlice "article" "edit-article"}}
+            {{if and .userInfo (not (isInclude .pageCode $pageList))}}
+                <div class="operate-box">
+                    <a class="btn" href="/edit-article">新增</a>
+                </div>
+            {{end}}
             {{if and .userInfo (eq .pageCode "article")}}
                 <div class="operate-box">
+                    <a class="btn" href="/edit-article">新增</a>
                     <a class="btn" href="/edit-article?id={{.id}}">编辑</a>
                     <a id="btn-delete-article" class="btn" href="javascript:;">删除</a>
                 </div>

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"prot/models"
@@ -34,8 +35,12 @@ func RenderListByTag(c *gin.Context) {
 		return
 	}
 
+	session := sessions.Default(c)
+	userInfo := session.Get("userInfo")
+
 	c.HTML(http.StatusOK, "list", gin.H{
 		"pageCode":  tag,
+		"userInfo": userInfo,
 		"pageTitle": tagObj.Name,
 		"articles":  articles,
 		"pagination": pagination,

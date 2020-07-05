@@ -31,6 +31,17 @@ var funcMap = template.FuncMap{
 		}
 		return false
 	},
+	"isInclude": func(code interface{}, list []interface{}) bool {
+		for _, item := range list {
+			if code == item {
+				return true
+			}
+		}
+		return false
+	},
+	"toSlice": func(args ...interface{}) []interface{} {
+		return args
+	},
 }
 
 func LoadTemplateFiles(templateDir, suffix string, commonTpls []string) multitemplate.Renderer {

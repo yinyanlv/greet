@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"prot/models"
@@ -27,8 +28,12 @@ func RenderArchive(c *gin.Context) {
 	}
 	pagination := utils.GetPagination(count, pageIndex, pageSize)
 
+	session := sessions.Default(c)
+	userInfo := session.Get("userInfo")
+
 	c.HTML(http.StatusOK, "list", gin.H{
 		"pageCode":   "archive",
+		"userInfo": userInfo,
 		"pageTitle":  "归档",
 		"articles":   articles,
 		"pagination": pagination,
@@ -59,8 +64,12 @@ func RenderArchiveByYearMonth(c *gin.Context) {
 	}
 	pagination := utils.GetPagination(count, pageIndex, pageSize)
 
+	session := sessions.Default(c)
+	userInfo := session.Get("userInfo")
+
 	c.HTML(http.StatusOK, "list", gin.H{
 		"pageCode":   "archive",
+		"userInfo": userInfo,
 		"pageTitle":  "归档 " + year + "-" + month,
 		"articles":   articles,
 		"pagination": pagination,
