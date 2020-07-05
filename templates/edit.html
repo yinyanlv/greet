@@ -64,6 +64,11 @@
         $btnSubmit.addEventListener('click', () => {
             const params = getParams();
 
+            if (params.title === '') {
+                alert('请输入标题');
+                return;
+            }
+
             if (params.id) {
                 axios.put('/article', params, {
                     withCredentials: true
@@ -100,7 +105,7 @@
         }
 
         inputs.forEach((item) => {
-            result[item.name] = item.value;
+            result[item.name] = item.value.trim();
         });
 
         result.content = editor.value();
