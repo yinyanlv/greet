@@ -14,7 +14,6 @@ docker exec -i ${mysql_container_name} bash << 'EOF'
 mysqldump prot -uroot -p111111 > /prot.sql
 exit
 EOF
-echo "Reset backup folder"
 rm -rf ${backup_folder}
 mkdir ${backup_folder}
 docker cp ${mysql_container_name}:/prot.sql ${backup_folder}
