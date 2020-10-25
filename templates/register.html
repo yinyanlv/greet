@@ -6,13 +6,13 @@
             <div class="field-line">
                 <label>用户名：</label>
                 <div>
-                    <input type="text" name="username"/>
+                    <input type="text" name="username" />
                 </div>
             </div>
             <div class="field-line">
                 <label>密码：</label>
                 <div>
-                    <input type="password" autocomplete="off" name="password"/>
+                    <input type="password" autocomplete="off" name="password" />
                 </div>
             </div>
             <div class="field-line">
@@ -34,9 +34,10 @@
     </main>
 </div>
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', () => {
-        const btnSubmit = document.getElementById('btn-submit');
+    const btnSubmit = document.getElementById('btn-submit');
+    const inputs = document.querySelectorAll('input');
 
+    document.addEventListener('DOMContentLoaded', () => {
         btnSubmit.addEventListener('click', () => {
             const params = getParams();
 
@@ -60,8 +61,15 @@
         }, false);
     }, false);
 
+    inputs.forEach((input) => {
+        input.addEventListener('keyup', (e) => {
+            if (e.keyCode === 13) {
+                btnSubmit.click();
+            }
+        }, false);
+    });
+
     function getParams() {
-        const inputs = document.querySelectorAll('input');
         let result = {};
 
         inputs.forEach((item) => {

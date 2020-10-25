@@ -2,15 +2,16 @@ package main
 
 import (
 	"encoding/gob"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/cookie"
-	"github.com/gin-gonic/gin"
 	. "prot/db"
 	"prot/etc"
 	"prot/middlewares"
 	"prot/models"
 	. "prot/utils"
 	"strconv"
+
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {

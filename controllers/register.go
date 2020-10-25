@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
 	. "prot/models"
 	"prot/utils"
+
+	"github.com/gin-gonic/gin"
 )
 
 func RenderRegister(c *gin.Context) {
@@ -18,7 +19,7 @@ func RenderRegister(c *gin.Context) {
 
 	if count > 0 {
 		c.Redirect(http.StatusMovedPermanently, "/404")
-	}  else {
+	} else {
 		c.HTML(http.StatusOK, "register", nil)
 	}
 }
@@ -32,7 +33,7 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	pwd, err  := utils.GenMD5Pwd(userReq.Password)
+	pwd, err := utils.GenMD5Pwd(userReq.Password)
 
 	if err != nil {
 		utils.HandleError(c, "json", 599, err)
@@ -40,15 +41,15 @@ func Register(c *gin.Context) {
 	}
 
 	user := User{
-		CommonStrID: CommonStrID {
+		CommonStrID: CommonStrID{
 			ID: utils.GenUUID(),
 		},
 		Username: userReq.Username,
 		Nickname: userReq.Nickname,
 		Password: pwd,
-		Salt: utils.PwdSalt,
-		Email: userReq.Email,
-		Phone: userReq.Phone,
+		Salt:     utils.PwdSalt,
+		Email:    userReq.Email,
+		Phone:    userReq.Phone,
 	}
 
 	if _, err := user.Insert(); err != nil {
