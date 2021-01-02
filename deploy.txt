@@ -1,0 +1,55 @@
+# 更新代码
+cd ~/github/prot
+git pull
+
+# 获取需恢复的数据
+cd ~/backup/prot-backup
+git checkout HEAD .
+git pull
+cd data
+tar -xzvf prot_20201223-000001.sql.tar.gz
+
+# 删除相关容器，非必须
+docker rm prot
+docker rm 7b7f198e96fc
+...
+
+# 删除相关镜像，非必须
+docker rmi prot
+docker rmi mysql:latest -f
+docker rmi mysql:5.7.30
+docker rmi nginx:latest
+...
+
+# 停止之前启动的mysql服务
+netstat -ap | grep 3306
+ps -el | grep mysql
+sudo kill ...
+
+# 启动mysql容器
+cd ~/github/prot
+docker-compose up &
+
+# 数据初始化
+docker cp ~/backup/prot-backup/data/prot.sql  a1ac1a106987:/prot.sql
+docker exec -it mysql /bin/bash
+mysql -u root -p
+create database prot;
+use prot;
+source /prot.sql;
+
+# 启动prot
+./start.sh
+
+# 配置并启动nginx容器
+ps -el | grep nginx
+sudo kill ...
+docker cp 65bc23f952db:/etc/nginx/ /root/nginx/etc/ # 非必须
+vim /root/nginx/etc/nginx/conf.d/prot.conf # conf.d目录下如果有其它配置文件，注意移除，以免配置冲突
+docker run --name=nginx_p -p 80:80 -v /root/nginx/html:/usr/share/nginx/html -v /root/nginx/etc/nginx/conf.d:/etc/nginx/conf.d -d nginx
+
+# 配置并启动定时数据备份
+cd ~/backup/prot-backup
+vim backup.sh # 做相关修改
+./backup.sh
+vim backup.sh # 还原修改，避免提交冲突
